@@ -5,13 +5,14 @@ use Home\Fetcher\FetcherBoot;
 use Think\Controller;
 
 class IndexController extends Controller {
+
     public function index(){
-        $person1 = new Person(1, 2, 3, 4, 5, 6);
-        $person2 = new Person(7, 8, 9, 10, 11, 12);
-        $personList = array($person1, $person2);
+        $person1 = new Person("11171228", "11171228", "11171228", "11171228", "11171228", "11171228");
+        $personList = array($person1);
+        // todo get person from db
 
         foreach($personList as $person) {
-            FetcherBoot::instance()->doFetch($person);
+            FetcherBoot::instance()->fetchPageHtml($person);
         }
     }
 }

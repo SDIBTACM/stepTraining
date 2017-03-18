@@ -14,8 +14,6 @@ class FetcherBoot
 
     private static $fetchList = null;
 
-    private static $cnt = 0;
-
     private function __construct() {
     }
 
@@ -32,24 +30,30 @@ class FetcherBoot
 
     private static function initFetcher() {
         self::$fetchList = array(
-            new BestCodeOJFilter(),
-            new CodeForceOJFilter(),
-            new HDOJFilter(),
-            new POJFilter(),
-            new SDUTOJFilter()
+            new BestCodeOJFetcher(),
+            new CodeForceOJFetcher(),
+            new HDOJFetcher(),
+            new POJFetcher(),
+            new SDUTOJFetcher()
         );
-        self::$cnt++;
     }
 
-    public function doFetch(Person $person) {
+    public function doGeneralFetch(Person $person) {
         $userScore = array();
         foreach (self::$fetchList as $fetcher) {
-            if ($fetcher instanceof FilterOJ) {
+            if ($fetcher instanceof IFetcherOJ) {
                 $userScore[$fetcher->getDbSolveKey()] = $fetcher->getSolved($person);
             }
         }
         dump($userScore);
-        dump(self::$cnt);
         //todo updateDB($userScore, $person->getUserId());
+    }
+
+    public function fetchPageHtml(Person $person) {
+        foreach (self::$fetchList as $fetcher) {
+            if ($fetcher instanceof IFetcherOJ) {
+                dump($fetcher->getUserInfo($person));
+            }
+        }
     }
 }
