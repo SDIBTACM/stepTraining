@@ -52,7 +52,7 @@ class FetcherBoot
     public function fetchPageHtml(Person $person) {
         foreach (self::$fetchList as $fetcher) {
             if ($fetcher instanceof IFetcherOJ) {
-                dump($fetcher->getUserInfo($person));
+                dump($fetcher->getSolved($person));
             }
         }
     }

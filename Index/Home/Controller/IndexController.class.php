@@ -7,7 +7,7 @@ use Think\Controller;
 class IndexController extends Controller {
 
     public function index(){
-        $person1 = new Person("11171228", "11171228", "11171228", "11171228", "11171228", "11171228");
+        $person1 = new Person("11171228", "11171228", "11171228", "Tamara", "Tamara", "illuz");
         $personList = array($person1);
         // todo get person from db
 

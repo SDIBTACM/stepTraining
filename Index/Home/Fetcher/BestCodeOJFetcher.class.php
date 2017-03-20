@@ -1,5 +1,6 @@
 <?php
 namespace Home\Fetcher;
+
 use Domain\Person;
 
 /**
@@ -10,13 +11,17 @@ use Domain\Person;
  */
 class BestCodeOJFetcher extends AbsFetcherOJ
 {
+    protected function getSwitch() {
+        return C('switch_BestCodeOJ');
+    }
+
     /**
      * 获取某个学生解决题数页面的html信息
      * @param Person $person
      * @return mixed
      */
-    protected function getUserSolvePage(Person $person) {
-        // TODO: Implement getUserSolvePage() method.
+    protected function getUserSolvePageUrl(Person $person) {
+        return "http://bestcoder.hdu.edu.cn/rating.php?user=" . $person->getBestcodeId();
     }
 
     /**
@@ -26,7 +31,9 @@ class BestCodeOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function filterSolve($html, Person $person) {
-        // TODO: Implement filterSolve() method.
+        $pattern = "|<span class=\"text-muted\">RATING</span>[\s\S]*?<span class=\"bigggger\">(\d+)</span>|";
+        preg_match($pattern, $html, $solved);
+        return isset($solved[1]) && !empty($solved[1]) ? $solved[1] : 0;
     }
 
     /**

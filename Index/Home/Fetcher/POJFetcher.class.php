@@ -1,7 +1,6 @@
 <?php
 namespace Home\Fetcher;
 use Domain\Person;
-use Home\Crawler\MCrawler;
 
 /**
  * drunk , fix later
@@ -11,14 +10,17 @@ use Home\Crawler\MCrawler;
  */
 class POJFetcher extends AbsFetcherOJ
 {
+    protected function getSwitch() {
+        return C('switch_POJ');
+    }
+
     /**
      * 获取某个学生解决题数页面的html信息
      * @param Person $person
      * @return mixed
      */
-    protected function getUserSolvePage(Person $person) {
-        $url = 'http://poj.org/searchuser?key=' . $person->getPojId() .' &B1=Search';
-        return MCrawler::instance()->execute($url);
+    protected function getUserSolvePageUrl(Person $person) {
+        return 'http://poj.org/userstatus?user_id=' . $person->getPojId();
     }
 
     /**
@@ -28,7 +30,9 @@ class POJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function filterSolve($html, Person $person) {
-        // TODO: Implement filterSolve() method.
+        $pattern = "|<td align=center width=25%><a href=status\?result=0&user_id=" . $person->getPojId() . ">(\d+)</a></td>|";
+        preg_match($pattern, $html, $solved);
+        return isset($solved[1]) && !empty($solved[1]) ? $solved[1] : 0;
     }
 
     /**

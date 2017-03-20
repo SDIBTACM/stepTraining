@@ -34,6 +34,7 @@ class MCrawler extends AbsCrawler
 
     protected function setHeader() {
         curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, 0); // 对认证证书来源的检查
+        curl_setopt($this->curl, CURLOPT_SSL_VERIFYHOST, 1);
         curl_setopt($this->curl, CURLOPT_HEADER, 0); // 显示返回的Header区域内容
     }
 
@@ -48,6 +49,6 @@ class MCrawler extends AbsCrawler
     }
 
     protected function setMethod() {
-        curl_setopt($this->curl, CURLOPT_HTTPGET, 1); // 发送一个常规的Post请求
+        curl_setopt($this->curl, CURLOPT_HTTPGET, 1); // 发送一个常规的Get请求
     }
 }

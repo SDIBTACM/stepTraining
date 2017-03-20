@@ -10,6 +10,7 @@ namespace Home\Fetcher;
 
 
 use Domain\Person;
+use Home\Crawler\MCrawler;
 
 abstract class AbsFetcherOJ implements IFetcherOJ
 {
@@ -19,7 +20,14 @@ abstract class AbsFetcherOJ implements IFetcherOJ
      * @return mixed
      */
     public function getSolved(Person $person) {
-        return $this->filterSolve($this->getUserSolvePage($person), $person);
+        if (!empty($this->getSwitch())) {
+            return $this->filterSolve(
+                MCrawler::instance()->execute($this->getUserSolvePageUrl($person)),
+                $person
+            );
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -29,18 +37,24 @@ abstract class AbsFetcherOJ implements IFetcherOJ
      * @return mixed
      */
     public function getProblemStatus(Person $person, $problemId) {
-        return $this->filterProblemStatus(
-            $this->getUserProblemStatusPage($person, $problemId),
-            $person, $problemId
-        );
+        if (!empty($this->getSwitch())) {
+            return $this->filterProblemStatus(
+                $this->getUserProblemStatusPage($person, $problemId),
+                $person, $problemId
+            );
+        } else {
+            return -1;
+        }
     }
+
+    abstract protected function getSwitch();
 
     /**
      * 获取某个学生解决题数页面的html信息
      * @param Person $person
      * @return mixed
      */
-    abstract protected function getUserSolvePage(Person $person);
+    abstract protected function getUserSolvePageUrl(Person $person);
 
     /**
      * 从html中过滤出解决的题数

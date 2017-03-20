@@ -18,10 +18,9 @@ abstract class AbsCrawler implements ICrawler
 
     public function execute($url) {
         $this->curl = curl_init();
-        $this->setSetting();
         curl_setopt($this->curl, CURLOPT_URL, $url); // 要访问的地址
+        $this->setSetting();
         $this->result = curl_exec($this->curl);
-
         if (curl_errno($this->curl)) {
             $this->result = null;
         }

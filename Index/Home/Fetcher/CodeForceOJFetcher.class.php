@@ -1,5 +1,6 @@
 <?php
 namespace Home\Fetcher;
+
 use Domain\Person;
 
 /**
@@ -10,13 +11,17 @@ use Domain\Person;
  */
 class CodeForceOJFetcher extends AbsFetcherOJ
 {
+    protected function getSwitch() {
+        return C('switch_CodeForceOJ');
+    }
+
     /**
      * 获取某个学生解决题数页面的html信息
      * @param Person $person
      * @return mixed
      */
-    protected function getUserSolvePage(Person $person) {
-        // TODO: Implement getUserSolvePage() method.
+    protected function getUserSolvePageUrl(Person $person) {
+        return 'http://codeforces.com/profile/' . $person->getCodeforceId();
     }
 
     /**
@@ -26,7 +31,9 @@ class CodeForceOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function filterSolve($html, Person $person) {
-        // TODO: Implement filterSolve() method.
+        $pattern = '|<span style=\"font-weight:bold;\" class=\"user-.*?\">(\d+)</span> <span|';
+        preg_match($pattern, $html, $solved);
+        return isset($solved[1]) && !empty($solved[1]) ? $solved[1] : 0;
     }
 
     /**

@@ -1,7 +1,6 @@
 <?php
 namespace Home\Fetcher;
 use Domain\Person;
-use Home\Crawler\MCrawler;
 
 /**
  * drunk , fix later
@@ -11,14 +10,17 @@ use Home\Crawler\MCrawler;
  */
 class HDOJFetcher extends AbsFetcherOJ
 {
+    protected function getSwitch() {
+        return C('switch_HDOJ');
+    }
+
     /**
      * 获取某个学生解决题数页面的html信息
      * @param Person $person
      * @return mixed
      */
-    protected function getUserSolvePage(Person $person) {
-        $url = 'http://acm.hdu.edu.cn/search.php?field=author&key=' . $person->getPojId();
-        return MCrawler::instance()->execute($url);
+    protected function getUserSolvePageUrl(Person $person) {
+        return 'http://acm.hdu.edu.cn/userstatus.php?user=' . $person->getPojId();
     }
 
     /**
@@ -28,7 +30,9 @@ class HDOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function filterSolve($html, Person $person) {
-        // TODO: Implement filterSolve() method.
+        $pattern = '|<tr><td>Problems Solved</td><td align=center>(\d+)</td></tr>|';
+        preg_match($pattern, $html, $solved);
+        return isset($solved[1]) && !empty($solved[1]) ? $solved[1] : 0;
     }
 
     /**

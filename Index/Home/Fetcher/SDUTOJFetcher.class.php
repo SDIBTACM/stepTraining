@@ -10,13 +10,17 @@ use Domain\Person;
  */
 class SDUTOJFetcher extends AbsFetcherOJ
 {
+    protected function getSwitch() {
+        return C('switch_SDUTOJ');
+    }
+
     /**
      * 获取某个学生解决题数页面的html信息
      * @param Person $person
      * @return mixed
      */
-    protected function getUserSolvePage(Person $person) {
-        // TODO: Implement getUserSolvePage() method.
+    protected function getUserSolvePageUrl(Person $person) {
+        return "http://acm.sdut.edu.cn/onlinejudge2/index.php/Home/User/standings?username=" . $person->getSdutojId();
     }
 
     /**
@@ -26,7 +30,9 @@ class SDUTOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function filterSolve($html, Person $person) {
-        // TODO: Implement filterSolve() method.
+        $pattern = '|<tbody>[\s\S]*?<tr>[\s\S]*?<td>1</td>[\s\S]*?<td>.*?</td>[\s\S]*?<td>.*?</td>[\s\S]*?<td>(\d+)</td>|';
+        preg_match($pattern, $html, $solved);
+        return isset($solved[1]) && !empty($solved[1]) ? $solved[1] : 0;
     }
 
     /**
