@@ -12,7 +12,8 @@ class IndexController extends Controller {
         // todo get person from db
 
         foreach($personList as $person) {
-            FetcherBoot::instance()->fetchPageHtml($person);
+            FetcherBoot::instance()->doGeneralFetch($person);
+            sleep(rand(1, 4));
         }
     }
 }

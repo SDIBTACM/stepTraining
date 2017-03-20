@@ -25,14 +25,11 @@ class HDOJFetcher extends AbsFetcherOJ
 
     /**
      * 从html中过滤出解决的题数
-     * @param $html
      * @param Person $person
      * @return mixed
      */
-    protected function filterSolve($html, Person $person) {
-        $pattern = '|<tr><td>Problems Solved</td><td align=center>(\d+)</td></tr>|';
-        preg_match($pattern, $html, $solved);
-        return isset($solved[1]) && !empty($solved[1]) ? $solved[1] : 0;
+    protected function filterSolvePattern(Person $person) {
+        return '|<tr><td>Problems Solved</td><td align=center>(\d+)</td></tr>|';
     }
 
     /**
@@ -41,7 +38,7 @@ class HDOJFetcher extends AbsFetcherOJ
      * @param $problemId
      * @return mixed
      */
-    protected function getUserProblemStatusPage(Person $person, $problemId) {
+    protected function getUserProblemStatusPageUrl(Person $person, $problemId) {
         return null;
     }
 

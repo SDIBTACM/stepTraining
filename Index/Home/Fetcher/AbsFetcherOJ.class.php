@@ -21,10 +21,9 @@ abstract class AbsFetcherOJ implements IFetcherOJ
      */
     public function getSolved(Person $person) {
         if (!empty($this->getSwitch())) {
-            return $this->filterSolve(
-                MCrawler::instance()->execute($this->getUserSolvePageUrl($person)),
-                $person
-            );
+            $html = MCrawler::instance()->execute($this->getUserSolvePageUrl($person));
+            preg_match($this->filterSolvePattern($person), $html, $solved);
+            return isset($solved[1]) && !empty($solved[1]) ? $solved[1] : 0;
         } else {
             return -1;
         }
@@ -39,7 +38,7 @@ abstract class AbsFetcherOJ implements IFetcherOJ
     public function getProblemStatus(Person $person, $problemId) {
         if (!empty($this->getSwitch())) {
             return $this->filterProblemStatus(
-                $this->getUserProblemStatusPage($person, $problemId),
+                $this->getUserProblemStatusPageUrl($person, $problemId),
                 $person, $problemId
             );
         } else {
@@ -58,11 +57,10 @@ abstract class AbsFetcherOJ implements IFetcherOJ
 
     /**
      * 从html中过滤出解决的题数
-     * @param $html
      * @param Person $person
      * @return mixed
      */
-    abstract protected function filterSolve($html, Person $person);
+    abstract protected function filterSolvePattern(Person $person);
 
     /**
      * 获取某个学生某题状态页面的html信息
@@ -71,7 +69,7 @@ abstract class AbsFetcherOJ implements IFetcherOJ
      * @param $problemId
      * @return mixed
      */
-    abstract protected function getUserProblemStatusPage(Person $person, $problemId);
+    abstract protected function getUserProblemStatusPageUrl(Person $person, $problemId);
 
     /**
      * 从html中过滤出题目的解决结果

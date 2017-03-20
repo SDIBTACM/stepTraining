@@ -25,14 +25,11 @@ class POJFetcher extends AbsFetcherOJ
 
     /**
      * 从html中过滤出解决的题数
-     * @param $html
      * @param Person $person
      * @return mixed
      */
-    protected function filterSolve($html, Person $person) {
-        $pattern = "|<td align=center width=25%><a href=status\?result=0&user_id=" . $person->getPojId() . ">(\d+)</a></td>|";
-        preg_match($pattern, $html, $solved);
-        return isset($solved[1]) && !empty($solved[1]) ? $solved[1] : 0;
+    protected function filterSolvePattern(Person $person) {
+        return "|<td align=center width=25%><a href=status\?result=0&user_id=" . $person->getPojId() . ">(\d+)</a></td>|";
     }
 
     /**
@@ -41,7 +38,7 @@ class POJFetcher extends AbsFetcherOJ
      * @param $problemId
      * @return mixed
      */
-    protected function getUserProblemStatusPage(Person $person, $problemId) {
+    protected function getUserProblemStatusPageUrl(Person $person, $problemId) {
         // TODO: Implement getUserProblemStatusPage() method.
     }
 

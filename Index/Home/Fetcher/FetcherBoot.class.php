@@ -48,12 +48,4 @@ class FetcherBoot
         dump($userScore);
         //todo updateDB($userScore, $person->getUserId());
     }
-
-    public function fetchPageHtml(Person $person) {
-        foreach (self::$fetchList as $fetcher) {
-            if ($fetcher instanceof IFetcherOJ) {
-                dump($fetcher->getSolved($person));
-            }
-        }
-    }
 }
