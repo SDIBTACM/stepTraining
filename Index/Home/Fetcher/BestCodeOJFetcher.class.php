@@ -21,6 +21,9 @@ class BestCodeOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
+        if (empty($person->getBestcodeId())) {
+            return null;
+        }
         return "http://bestcoder.hdu.edu.cn/rating.php?user=" . $person->getBestcodeId();
     }
 
@@ -46,12 +49,11 @@ class BestCodeOJFetcher extends AbsFetcherOJ
 
     /**
      * 从html中过滤出题目的解决结果
-     * @param $html
      * @param Person $person
      * @param $problemId
      * @return mixed
      */
-    protected function filterProblemStatus($html, Person $person, $problemId) {
+    protected function filterProblemStatusPattern(Person $person, $problemId) {
         return null;
     }
 

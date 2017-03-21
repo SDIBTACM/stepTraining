@@ -2,18 +2,27 @@
 namespace Home\Controller;
 use Domain\Person;
 use Home\Fetcher\FetcherBoot;
+use Home\Manager\ProblemManager;
+use Home\Manager\UserManager;
 use Think\Controller;
 
 class IndexController extends Controller {
 
-    public function index(){
-        $person1 = new Person("11171228", "11171228", "11171228", "Tamara", "Tamara", "illuz");
-        $personList = array($person1);
-        // todo get person from db
-
+    public function getUserSolved(){
+        $personList = UserManager::instance()->getAllUser();
         foreach($personList as $person) {
-            FetcherBoot::instance()->doGeneralFetch($person);
-            sleep(rand(1, 4));
+            FetcherBoot::instance()->doSolvedFetch($person);
+            sleep(1);
+        }
+    }
+
+    public function getProblemStatus() {
+        $personList = UserManager::instance()->getAllUser();
+        $problemIds = ProblemManager::instance()->getAllProblemId(ProblemManager::POJ_TYPE);
+        foreach ($personList as $person) {
+            foreach ($problemIds as $problemId) {
+                FetcherBoot::instance()->doProblemFetch($person, $problemId);
+            }
         }
     }
 }

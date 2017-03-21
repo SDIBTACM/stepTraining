@@ -20,7 +20,10 @@ class HDOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
-        return 'http://acm.hdu.edu.cn/userstatus.php?user=' . $person->getPojId();
+        if (empty($person->getHdojId())) {
+            return null;
+        }
+        return 'http://acm.hdu.edu.cn/userstatus.php?user=' . $person->getHdojId();
     }
 
     /**
@@ -44,12 +47,11 @@ class HDOJFetcher extends AbsFetcherOJ
 
     /**
      * 从html中过滤出题目的解决结果
-     * @param $html
      * @param Person $person
      * @param $problemId
      * @return mixed
      */
-    protected function filterProblemStatus($html, Person $person, $problemId) {
+    protected function filterProblemStatusPattern(Person $person, $problemId) {
         return null;
     }
 

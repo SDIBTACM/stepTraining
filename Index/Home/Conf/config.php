@@ -5,5 +5,5 @@ return array(
     'switch_CodeForceOJ' => true,
     'switch_HDOJ' => true,
     'switch_POJ' => true,
-    'switch_SDUTOJ' => true
+    'switch_SDUTOJ' => false
 );

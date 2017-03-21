@@ -21,6 +21,9 @@ class CodeForceOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
+        if (empty($person->getCodeforceId())) {
+            return null;
+        }
         return 'http://codeforces.com/profile/' . $person->getCodeforceId();
     }
 
@@ -45,12 +48,11 @@ class CodeForceOJFetcher extends AbsFetcherOJ
 
     /**
      * 从html中过滤出题目的解决结果
-     * @param $html
      * @param Person $person
      * @param $problemId
      * @return mixed
      */
-    protected function filterProblemStatus($html, Person $person, $problemId) {
+    protected function filterProblemStatusPattern(Person $person, $problemId) {
         return null;
     }
 

@@ -20,6 +20,9 @@ class SDUTOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
+        if (empty($person->getSdutojId())) {
+            return null;
+        }
         return "http://acm.sdut.edu.cn/onlinejudge2/index.php/Home/User/standings?username=" . $person->getSdutojId();
     }
 
@@ -44,12 +47,11 @@ class SDUTOJFetcher extends AbsFetcherOJ
 
     /**
      * 从html中过滤出题目的解决结果
-     * @param $html
      * @param Person $person
      * @param $problemId
      * @return mixed
      */
-    protected function filterProblemStatus($html, Person $person, $problemId) {
+    protected function filterProblemStatusPattern(Person $person, $problemId) {
         return null;
     }
 

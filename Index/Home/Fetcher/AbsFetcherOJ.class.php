@@ -20,13 +20,18 @@ abstract class AbsFetcherOJ implements IFetcherOJ
      * @return mixed
      */
     public function getSolved(Person $person) {
-        if (!empty($this->getSwitch())) {
-            $html = MCrawler::instance()->execute($this->getUserSolvePageUrl($person));
-            preg_match($this->filterSolvePattern($person), $html, $solved);
-            return isset($solved[1]) && !empty($solved[1]) ? $solved[1] : 0;
-        } else {
-            return -1;
+        if (empty($this->getSwitch())) {
+            return 0;
         }
+        $url = $this->getUserSolvePageUrl($person);
+        $pattern = $this->filterSolvePattern($person);
+        if (is_null($url) || is_null($pattern)) {
+            return 0;
+        }
+
+        $html = MCrawler::instance()->execute($url);
+        preg_match($pattern, $html, $solved);
+        return isset($solved[1]) && !empty($solved[1]) ? intval($solved[1]) : 0;
     }
 
     /**
@@ -36,14 +41,19 @@ abstract class AbsFetcherOJ implements IFetcherOJ
      * @return mixed
      */
     public function getProblemStatus(Person $person, $problemId) {
-        if (!empty($this->getSwitch())) {
-            return $this->filterProblemStatus(
-                $this->getUserProblemStatusPageUrl($person, $problemId),
-                $person, $problemId
-            );
-        } else {
-            return -1;
+        if (empty($this->getSwitch())) {
+            return false;
         }
+
+        $url = $this->getUserProblemStatusPageUrl($person, $problemId);
+        $pattern = $this->filterProblemStatusPattern($person, $problemId);
+        if (is_null($url) || is_null($pattern)) {
+            return false;
+        }
+
+        $html = MCrawler::instance()->execute($url);
+        $flag = preg_match($pattern, $html, $status);
+        return $flag ? date('Y-m-d', strtotime($status[1])) : false;
     }
 
     abstract protected function getSwitch();
@@ -73,10 +83,9 @@ abstract class AbsFetcherOJ implements IFetcherOJ
 
     /**
      * 从html中过滤出题目的解决结果
-     * @param $html
      * @param Person $person
      * @param $problemId
      * @return mixed
      */
-    abstract protected function filterProblemStatus($html, Person $person, $problemId);
+    abstract protected function filterProblemStatusPattern(Person $person, $problemId);
 }

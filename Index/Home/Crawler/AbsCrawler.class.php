@@ -22,7 +22,7 @@ abstract class AbsCrawler implements ICrawler
         $this->setSetting();
         $this->result = curl_exec($this->curl);
         if (curl_errno($this->curl)) {
-            $this->result = null;
+            $this->result = "";
         }
         curl_close($this->curl);
         return $this->result;

@@ -1,5 +1,6 @@
 <?php
 namespace Home\Fetcher;
+
 use Domain\Person;
 
 /**
@@ -20,6 +21,9 @@ class POJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
+        if (empty($person->getPojId())) {
+            return null;
+        }
         return 'http://poj.org/userstatus?user_id=' . $person->getPojId();
     }
 
@@ -39,18 +43,17 @@ class POJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserProblemStatusPageUrl(Person $person, $problemId) {
-        // TODO: Implement getUserProblemStatusPage() method.
+        return "http://poj.org/status?problem_id=" . $problemId . "&user_id=" . $person->getPojId() . "&result=0&language=";
     }
 
     /**
      * 从html中过滤出题目的解决结果
-     * @param $html
      * @param Person $person
      * @param $problemId
      * @return mixed
      */
-    protected function filterProblemStatus($html, Person $person, $problemId) {
-        // TODO: Implement filterProblemStatus() method.
+    protected function filterProblemStatusPattern(Person $person, $problemId) {
+        return "|<tr align=center><td>.*?</td><td><a href=userstatus\?user_id=.*?</a></td><td><a href=problem\?id=.*?</a></td><td><font color=blue>Accepted</font></td><td>.*?</td><td>.*?</td><td>.*?</td><td>.*?</td><td>(.*?)</td></tr>|";
     }
 
     public function getDbSolveKey() {

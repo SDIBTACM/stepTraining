@@ -1,5 +1,6 @@
 <?php
 namespace Home\Fetcher;
+
 use Domain\Person;
 
 /**
@@ -12,7 +13,9 @@ class FetcherBoot
 {
     private static $_instance = null;
 
-    private static $fetchList = null;
+    private static $fetchSolvedList = array();
+
+    private static $fetchProblemStatusFetcher = null;
 
     private function __construct() {
     }
@@ -23,13 +26,14 @@ class FetcherBoot
     public static function instance() {
         if (is_null(self::$_instance)) {
             self::$_instance = new self;
-            self::initFetcher();
+            self::initSolvedFetcher();
+            self::initProblemFetcher();
         }
         return self::$_instance;
     }
 
-    private static function initFetcher() {
-        self::$fetchList = array(
+    private static function initSolvedFetcher() {
+        self::$fetchSolvedList = array(
             new BestCodeOJFetcher(),
             new CodeForceOJFetcher(),
             new HDOJFetcher(),
@@ -38,14 +42,25 @@ class FetcherBoot
         );
     }
 
-    public function doGeneralFetch(Person $person) {
+    private static function initProblemFetcher() {
+        self::$fetchProblemStatusFetcher = new POJFetcher();
+    }
+
+    public function doSolvedFetch(Person $person) {
         $userScore = array();
-        foreach (self::$fetchList as $fetcher) {
+        $userScore['user_id'] = $person->getUserId();
+        foreach (self::$fetchSolvedList as $fetcher) {
             if ($fetcher instanceof IFetcherOJ) {
                 $userScore[$fetcher->getDbSolveKey()] = $fetcher->getSolved($person);
             }
         }
         dump($userScore);
         //todo updateDB($userScore, $person->getUserId());
+    }
+
+    public function doProblemFetch(Person $person, $problemId) {
+        $res = self::$fetchProblemStatusFetcher->getProblemStatus($person, $problemId);
+        dump("userId:" . $person->getUserId() . ", problemId:" . $problemId . ",result:" . $res);
+        // todo update or insert db
     }
 }
