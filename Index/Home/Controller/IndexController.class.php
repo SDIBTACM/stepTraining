@@ -21,7 +21,8 @@ class IndexController extends Controller {
         $problemIds = ProblemManager::instance()->getAllProblemId(ProblemManager::POJ_TYPE);
         foreach ($personList as $person) {
             foreach ($problemIds as $problemId) {
-                FetcherBoot::instance()->doProblemFetch($person, $problemId);
+                FetcherBoot::instance()->doProblemFetch($person, $problemId, ProblemManager::POJ_TYPE);
+                usleep(20000);
             }
         }
     }

@@ -2,6 +2,7 @@
 namespace Home\Fetcher;
 
 use Domain\Person;
+use Home\Manager\ProblemManager;
 
 /**
  * drunk , fix later
@@ -43,7 +44,9 @@ class FetcherBoot
     }
 
     private static function initProblemFetcher() {
-        self::$fetchProblemStatusFetcher = new POJFetcher();
+        self::$fetchProblemStatusFetcher = array(
+            ProblemManager::POJ_TYPE => new POJFetcher()
+        );
     }
 
     public function doSolvedFetch(Person $person) {
@@ -58,9 +61,12 @@ class FetcherBoot
         //todo updateDB($userScore, $person->getUserId());
     }
 
-    public function doProblemFetch(Person $person, $problemId) {
-        $res = self::$fetchProblemStatusFetcher->getProblemStatus($person, $problemId);
-        dump("userId:" . $person->getUserId() . ", problemId:" . $problemId . ",result:" . $res);
-        // todo update or insert db
+    public function doProblemFetch(Person $person, $problemId, $ojType) {
+        $fetcher = self::$fetchProblemStatusFetcher[$ojType];
+        if ($fetcher instanceof IFetcherOJ) {
+            $res = $fetcher->getProblemStatus($person, $problemId);
+            dump("userId:" . $person->getUserId() . ", problemId:" . $problemId . ",ojType:" . $ojType . ",result:" . $res);
+            // todo update or insert db
+        }
     }
 }
