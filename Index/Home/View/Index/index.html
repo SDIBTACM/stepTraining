@@ -1,0 +1,24 @@
+<div class="container plan_content">
+    <table class="table table-hover table-bordered table-condensed">
+        <thread>
+            <th width=5%>姓名</th>
+            <th width=30%>班级</th>
+            <th width=12%>poj solved</th>
+            <th width=12%>hdu solved</th>
+            <th width=8%>cf rating</th>
+            <th width=8%>bc rating</th>
+        </thread>
+        <tbody>
+        <foreach name="userList" item="user">
+            <tr>
+                <td>{$user['user_name']}</td>
+                <td>{$user['class_name']}</td>
+                <td>{$user['poj_solved']}</td>
+                <td>{$user['hdoj_solved']}</td>
+                <td>{$user['cf_rating']}</td>
+                <td>{$user['bc_rating']}</td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+</div>

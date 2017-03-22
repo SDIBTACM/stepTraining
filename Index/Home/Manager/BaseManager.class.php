@@ -23,4 +23,22 @@ abstract class BaseManager
     }
 
     abstract protected function getTableName();
+
+    public function queryOne($where, $field = array()) {
+        if (empty($where)) {
+            return null;
+        }
+        return $this->getDao()->field($field)->where($where)->find();
+    }
+
+    public function queryAll($where, $field = array(), $order = array()) {
+        if (empty($where)) {
+            return array();
+        }
+        if (empty($order)) {
+            return $this->getDao()->field($field)->where($where)->select();
+        } else {
+            return $this->getDao()->field($field)->where($where)->order($order)->select();
+        }
+    }
 }

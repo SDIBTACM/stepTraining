@@ -2,7 +2,8 @@
 namespace Home\Fetcher;
 
 use Domain\Person;
-use Home\Manager\ProblemManager;
+use Domain\Plan;
+use Think\Log;
 
 /**
  * drunk , fix later
@@ -39,18 +40,18 @@ class FetcherBoot
             new CodeForceOJFetcher(),
             new HDOJFetcher(),
             new POJFetcher(),
-            new SDUTOJFetcher()
         );
     }
 
     private static function initProblemFetcher() {
         self::$fetchProblemStatusFetcher = array(
-            ProblemManager::POJ_TYPE => new POJFetcher()
+            Plan::POJ_PlAN_TYPE => new POJFetcher()
         );
     }
 
     public function doSolvedFetch(Person $person) {
         $userScore = array();
+        Log::record("now fetch user solved, userId: " . $person->getUserId(), Log::INFO);
         $userScore['user_id'] = $person->getUserId();
         foreach (self::$fetchSolvedList as $fetcher) {
             if ($fetcher instanceof IFetcherOJ) {
@@ -61,11 +62,12 @@ class FetcherBoot
         //todo updateDB($userScore, $person->getUserId());
     }
 
-    public function doProblemFetch(Person $person, $problemId, $ojType) {
-        $fetcher = self::$fetchProblemStatusFetcher[$ojType];
+    public function doProblemFetch(Person $person, $problemId, $planType) {
+        Log::record("now fetch user problem status, userId: " . $person->getUserId() . ",problemId:" . $problemId, Log::INFO);
+        $fetcher = self::$fetchProblemStatusFetcher[$planType];
         if ($fetcher instanceof IFetcherOJ) {
             $res = $fetcher->getProblemStatus($person, $problemId);
-            dump("userId:" . $person->getUserId() . ", problemId:" . $problemId . ",ojType:" . $ojType . ",result:" . $res);
+            dump("userId:" . $person->getUserId() . ", problemId:" . $problemId . ",planType:" . $planType . ",result:" . $res);
             // todo update or insert db
         }
     }

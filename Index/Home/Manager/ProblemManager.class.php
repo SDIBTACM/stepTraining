@@ -13,8 +13,6 @@ class ProblemManager extends BaseManager
 {
     private static $_instance = null;
 
-    const POJ_TYPE = 1;
-
     private function __construct() {
     }
 
@@ -30,16 +28,5 @@ class ProblemManager extends BaseManager
 
     protected function getTableName() {
         return "problem";
-    }
-
-    public function getAllProblemId($type) {
-        $where = array('oj_type' => $type);
-        $field = array('oj_pid');
-        $res = $this->getDao()->field($field)->where($where)->select();
-        $problemIds = array();
-        foreach ($res as $r) {
-            $problemIds[] = $r['oj_pid'];
-        }
-        return $problemIds;
     }
 }

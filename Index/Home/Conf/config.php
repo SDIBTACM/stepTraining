@@ -5,5 +5,8 @@ return array(
     'switch_CodeForceOJ' => true,
     'switch_HDOJ' => true,
     'switch_POJ' => true,
-    'switch_SDUTOJ' => false
+    'switch_SDUTOJ' => false,
+    
+    // 是否打开日志开关
+    'LOG_RECORD' => true
 );
