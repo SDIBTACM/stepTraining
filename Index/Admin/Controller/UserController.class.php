@@ -20,7 +20,7 @@ class UserController extends TemplateController
 
     public function login() {
         if ($this->isLogin()) {
-            $this->alertError('您已经登陆!', U('Admin'));
+            $this->alertError('您已经登陆!', U('/Admin'));
         }
         if (IS_POST) {
             return $this->doLogin();

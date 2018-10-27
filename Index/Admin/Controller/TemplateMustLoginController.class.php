@@ -14,5 +14,7 @@ class TemplateMustLoginController extends TemplateController
     public function _initialize() {
         $this->isNeedLogin = true;
         parent::_initialize();
+        $this->assign('user', $this->userInfo['nick_name'] ?
+            $this->userInfo['nick_name'] : $this->userInfo['user_name']);
     }
 }

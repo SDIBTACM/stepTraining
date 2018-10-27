@@ -24,6 +24,7 @@ origin_id | varchar(100) | | Y
 ---|---|---|---|---|---
 id | int | Y | Y | | AUTO INCREMENT
 name | varchar(32) | | Y 
+status | tinyint |  | Y | 0 | 0 is normal, -1 is deleted
 
 ### TABLE: porblem
 列名 | 数据类型 | 主键 | 非空 | 默认值 | 备注
@@ -33,6 +34,7 @@ origin_oj | varchar(16) | | Y | | key
 origin_id | varchar(16) | | Y | | key
 category_id | int | | Y | 1 | key
 description | varchar(64) | | Y | '' 
+status | tinyint |  | Y | 0 | 0 is normal, -1 is deleted
 
 ### TABLE: problem_ac_time
 列名 | 数据类型 | 主键 | 非空 | 默认值 | 备注

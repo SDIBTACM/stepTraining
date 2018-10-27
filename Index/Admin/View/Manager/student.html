@@ -1,3 +1,55 @@
-<foreach name="student_info" item="vo">
-    {$vo['nick_name']}
-</foreach>
+<h1 class="title">{$title}</h1>
+<table class="table table-hover stu-table">
+    <thead>
+        <tr>
+            <th class="stu-id"> ID </th>
+            <th class="stu-name">姓名</th>
+            <th class="stu-hdu">HDU 账号</th>
+            <th class="stu-poj">PKU 账号</th>
+            <th class="stu-cd">Codeforces 账号</th>
+            <th class="stu-bc">BestCode 账号</th>
+            <th class="stu-sdut">SDUT 账号</th>
+            <th class="stu-sdibt">SDIBT 账号</th>
+            <th class="stu-is-show">是否显示</th>
+            <th class="stu-is-update">是否更新</th>
+            <th class="stu-operate">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    <foreach name="student_info" item="item">
+        <tr>
+            <td class="no-show id">{$item['id']}</td>
+            <td class="text nick_name">{$item['nick_name']}</td>
+            <td class="text hdu">{$item['hdu']}</td>
+            <td class="text poj">{$item['poj']}</td>
+            <td class="text cf">{$item['cf']}</td>
+            <td class="text bc">{$item['bc']}</td>
+            <td class="text sdut">{$item['sdut']}</td>
+            <td class="text sdibt">{$item['sdibt']}</td>
+            <td class="selectTF is-show">{$item['is_show']?'Yes':'No'}</td>
+            <td class="selectTF is-update">{$item['is_update']?'Yes':'No'}</td>
+            <td class="operate">
+                <button onclick="clickOnModify(this);" class="btn btn-info table-update">修改信息</button>
+                <button onclick="clickOnDelete(this);" class="btn btn-danger table-delete ">删除</button>
+                <button onclick="clickOnSave(this);" class="btn btn-warning table-save" style="display: none">保存</button>
+            </td>
+        </tr>
+    </foreach>
+        <tr>
+            <td class="no-show id"></td>
+            <td class="text nick_name"></td>
+            <td class="text hdu"></td>
+            <td class="text poj"></td>
+            <td class="text cf"></td>
+            <td class="text bc"></td>
+            <td class="text sdut"></td>
+            <td class="text sdibt"></td>
+            <td class="selectTF is-show"></td>
+            <td class="selectTF is-update"></td>
+            <td class="operate">
+                <button onclick="clickOnCreate(this);" class="btn btn-info table-create">增加</button>
+                <button onclick="clickOnSave(this);" class="btn btn-warning table-save" style="display: none">保存</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

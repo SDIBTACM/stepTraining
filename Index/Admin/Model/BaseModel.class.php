@@ -83,6 +83,13 @@ abstract class BaseModel
         return $this->getDao()->where($where)->data($data)->save();
     }
 
+    public function updateByWhere($where, $data) {
+        if ( empty($where) || empty($data)) {
+            return null;
+        }
+        return $this->getDao()->where($where)->data($data)->save();
+    }
+
     /**
      * @param $where array the condition
      * @param null $field

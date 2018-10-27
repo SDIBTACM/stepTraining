@@ -42,7 +42,16 @@ class TemplateController extends Controller
     public function initLogin() {
         if ($this->isLogin())
             return true;
-        else $this->alertError('您未登陆!', U('Admin/User/login'));
+        if (IS_GET) {
+            header('HTTP/1.0 403 Forbidden');
+            $this->alertError('您未登陆!', U('Admin/User/login'));
+            exit();
+        }
+        else {
+            header('HTTP/1.0 403 Forbidden');
+            echo "please login first!";
+            exit();
+        }
     }
 
     public function isLogin() {
@@ -70,7 +79,7 @@ class TemplateController extends Controller
 
     public function _empty() {
         http_response_code(404);
-        $this->alertError("404");
+        $this->alertError("404", U('Admin/Manager/student'));
     }
 
     protected function ajaxCodeReturn($code, $message, $data = array()) {
