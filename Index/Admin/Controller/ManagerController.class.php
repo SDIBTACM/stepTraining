@@ -8,14 +8,15 @@
 
 namespace Admin\Controller;
 
-
+use Admin\Business\CategoryBusiness;
 use Admin\Business\StudentBusiness;
+use Admin\Business\UserBusiness;
 use Admin\Model\CategoryModel;
 use Admin\Model\ProblemModel;
 use Admin\Model\UserAccountModel;
 use Admin\Model\UserModel;
 use Basic\Log;
-use Basic\Result;
+
 
 class ManagerController extends TemplateMustLoginController
 {
@@ -51,22 +52,20 @@ class ManagerController extends TemplateMustLoginController
 
                 case 'delete' : {
                     $id = I('post.id');
-                    $res = false;
-                    if (UserModel::instance()->countNumber(array('id' => $id, 'identity' => '0'))) {
-                        $res = UserModel::instance()->updateById($id, array('status' => -1));
-                    }
-                    if (false === $res) {
+                    $res = StudentBusiness::instance()->delete($id);
+                    if (!$res->isSuccess()) {
                         header('HTTP/1.0 400 Bad Request');
                         echo 'fail';
-                        Log::info('user: {}, request: delete, status: fail, more info: {}',
-                            $this->userInfo['user_name'], I('post.'));
+                        Log::info('user: {}, request: save, status: fail, more info: {}, post: {}',
+                            $this->userInfo['user_name'], $res->getMessage(), I('post.'));
                     } else {
-                        echo 'success';
+                        echo $res->getMessage();
                     }
                     break;
                 }
                 default : {
                     log::info('User: {}, ip :{} give a wrong action: {}', $this->userInfo['user_name'], curIp(), $action);
+                    header('HTTP/1.0 400 Bad Request');
                     echo 'fail';
                     break;
                 }
@@ -100,7 +99,7 @@ class ManagerController extends TemplateMustLoginController
                     }
                 }
             }
-            Log::debug("",$studentInfo);
+            Log::debug("", $studentInfo);
             $this->assign('student_info', $studentInfo);
             $this->assign('title', 'Student Management');
             $this->auto_display('student');
@@ -116,8 +115,10 @@ class ManagerController extends TemplateMustLoginController
                 }
                 case 'delete' : {
                     $id = I('post.id');
-                    $res = ProblemModel::instance()->updateById($id, array('status' => -1));
+                    $res = UserBusiness::instance()->delete($id);
+
                     if (false === $res) {
+                        header('HTTP/1.0 400 Bad Request');
                         echo 'fail';
                         Log::info('user: {}, request: delete, status: fail, more info: {}',
                             $this->userInfo['username'], I('post'));
@@ -125,9 +126,11 @@ class ManagerController extends TemplateMustLoginController
                         echo 'success';
                     }
                     break;
+
                 }
                 default : {
                     log::info('User: {}, ip :{} give a wrong action: {}', $this->userInfo['user_name'], curIp(), $action);
+                    header('HTTP/1.0 400 Bad Request');
                     echo 'fail';
                     break;
                 }
@@ -139,14 +142,12 @@ class ManagerController extends TemplateMustLoginController
             );
             $result = ProblemModel::instance()->queryAll($where);
             $categoryList = CategoryModel::instance()->queryAll($where);
-            log::debug('', $categoryList);
 
             foreach ($result as &$item) {
                 $item['category_name'] = $categoryList[$item['category_id']]['name'];
             }
             $this->assign('title', 'Problem Management');
-            $this->assign('problem_list', $result);
-            log::debug('',$result);
+            $this->assign('problem_info', $result);
             $this->auto_display('problem');
 
         }
@@ -157,17 +158,31 @@ class ManagerController extends TemplateMustLoginController
             $action = I('post.action');
             switch($action) {
                 case 'save': {
+                    $categoryInfo['id'] = I('post.id');
+                    $categoryInfo['name'] = I('post.name');
+                    $res = CategoryBusiness::instance()->save($categoryInfo);
+
+                    if (!$res->isSuccess()) {
+                        header('HTTP/1.0 400 Bad Request');
+                        echo 'fail';
+                        Log::info('user: {}, request: save, status: fail, more info: {}, post: {}',
+                            $this->userInfo['user_name'], $res->getMessage(), I('post.'));
+                    } else {
+                        echo $res->getMessage();
+                    }
                     break;
                 }
                 case 'delete' : {
                     $id = I('post.id');
-                    $res = ProblemModel::instance()->updateById($id, array('status' => -1));
-                    if (false === $res) {
+                    $res = CategoryBusiness::instance()->delete($id);
+
+                    if (!$res->isSuccess()) {
+                        header('HTTP/1.0 400 Bad Request');
                         echo 'fail';
-                        Log::info('user: {}, request: delete, status: fail, more info: {}',
-                            $this->userInfo['username'], I('post'));
+                        Log::info('user: {}, request: save, status: fail, more info: {}, post: {}',
+                            $this->userInfo['user_name'], $res->getMessage(), I('post.'));
                     } else {
-                        echo 'success';
+                        echo $res->getMessage();
                     }
                     break;
                 }
@@ -183,8 +198,8 @@ class ManagerController extends TemplateMustLoginController
             );
             $result = CategoryModel::instance()->queryAll($where);
             $this->assign('title', 'Category Management');
-            $this->assign('category_list', $result);
-
+            $this->assign('category_info', $result);
+            $this->auto_display('category');
         }
     }
 
@@ -192,24 +207,36 @@ class ManagerController extends TemplateMustLoginController
         if (IS_POST) {
             $action = I('post.action');
             switch($action) {
-                case 'add': {
+                case 'save' : {
+                    $userInfo['id'] = I('post.id', 0);
+                    if (I('post.id', 0) == 0) $userInfo['user_name'] = I('post.user_name', null);
+                    $userInfo['nick_name'] = I('post.nick_name', null);
+                    if(I('post.password', null) !== null) $userInfo['password'] = password_hash(
+                        I('post.password', null), PASSWORD_DEFAULT);
+                    $userInfo['status'] = I('post.status', 0);
 
-                    break ;
-                }
-                case 'update' : {
+                    $res = UserBusiness::instance()->save($userInfo);
+
+                    if (!$res->isSuccess()) {
+                        header('HTTP/1.0 400 Bad Request');
+                        echo 'fail';
+                        Log::info('user: {}, request: save, status: fail, more info: {}, post: {}',
+                            $this->userInfo['user_name'], $res->getMessage(), I('post.'));
+                    } else {
+                        echo 'success';
+                    }
 
                     break;
                 }
                 case 'delete' : {
                     $id = I('post.id');
-                    $res = false;
-                    if (UserModel::instance()->countNumber(array('id' => $id, 'identity' => '0'))) {
-                        $res = UserModel::instance()->updateById($id, array('status' => -1));
-                    }
+                    $res = UserBusiness::instance()->delete($id);
+
                     if (false === $res) {
+                        header('HTTP/1.0 400 Bad Request');
                         echo 'fail';
                         Log::info('user: {}, request: delete, status: fail, more info: {}',
-                            $this->userInfo['username'], I('post'));
+                            $this->userInfo['username'], I('post.'));
                     } else {
                         echo 'success';
                     }
@@ -217,6 +244,7 @@ class ManagerController extends TemplateMustLoginController
                 }
                 default : {
                     log::info('User: {}, ip :{} give a wrong action: {}', $this->userInfo['user_name'], curIp(), $action);
+                    header('HTTP/1.0 400 Bad Request');
                     echo 'fail';
                     break;
                 }
@@ -233,9 +261,9 @@ class ManagerController extends TemplateMustLoginController
                 'status',
             );
             $result = UserModel::instance()->queryAll($where, $filed);
-            $this->assign('title', 'User Manafement');
-            log::debug('',$result);
-            $this->assign('user_list', $result);
+            $this->assign('title', 'User Management');
+            $this->assign('user_info', $result);
+            $this->auto_display('user');
         }
     }
 }

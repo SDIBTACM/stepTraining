@@ -63,8 +63,7 @@ function clickOnDelete(Obj) {
 
 function clickOnSave(Obj) {
     const tr = $(Obj).parents("tr");
-    tr.find('.table-save').hide();
-    tr.find('.table-update').show(); tr.find('.table-delete').show(); tr.find('.table-create').show();
+
     let post_date = {};
 
     tr.find('.id').each(function () {
@@ -77,15 +76,15 @@ function clickOnSave(Obj) {
         if (input.value !== '') {
             post_date[td.className.split(' ')[1]] = input.value;
         }
-        $(this).html(input.value);
+        //$(this).html(input.value);
     });
 
     tr.find('.selectTF').each(function () {
         const name = $(this)[0].className.split(' ')[1];
         const checked = $(':radio[name="' + name + '"]:checked').val();
         post_date[name] = checked;
-        if (checked === '0') $(this).html('No');
-        else $(this).html('Yes');
+        //if (checked === '0') $(this).html('No');
+        //else $(this).html('Yes');
     });
 
     tr.find('.selectL').each(function () {
@@ -94,7 +93,10 @@ function clickOnSave(Obj) {
 
     if (post_date !== {}) {
         $.post(window.location.href, Object.assign({action: 'save'}, post_date), function () {
+            tr.find('.table-save').hide();
+            tr.find('.table-update').show(); tr.find('.table-delete').show(); tr.find('.table-create').show();
             location.reload();
         });
     }
+
 }

@@ -1,7 +1,7 @@
 <?php
 	// 检测PHP环境
-	if(version_compare(PHP_VERSION,'5.3.0','<'))  
-		die('require PHP > 5.3.0 !');
+	if(version_compare(PHP_VERSION,'5.5.0','<'))
+		die('require PHP > 5.5.0 !');
 
 	define("APP_NAME","Index");
 	define("APP_PATH","./Index/");

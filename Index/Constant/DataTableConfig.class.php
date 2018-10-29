@@ -16,5 +16,5 @@ class DataTableConfig
     CONST CATEGORY = 'category';
     CONST PROBLEM = 'problem';
     CONST PROBLEM_AC_TIME = 'problem_ac_time';
-    CONST PROBLEM_AC_NUM = 'problem_ac_num';
+    CONST PROBLEM_AC_NUM = 'student_ac_num';
 }

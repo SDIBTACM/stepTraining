@@ -28,10 +28,9 @@ class StudentBusiness
             $studentId = $studentInfo['id'];
 
             if (0 == UserModel::instance()->countNumber(array('id' => $studentId, 'identity' => '0'))) {
-                return Result::returnFailed('can\'t find');
+                return Result::returnFailed('can not find user');
             }
 
-            //$studentInfo = array('id' => $studentId);
             if (false === UserModel::instance()->updateById($studentId, $studentInfo)) {
                 return Result::returnFailed('update failed');
             }
@@ -81,6 +80,18 @@ class StudentBusiness
             }
             $inputStuInfo['id'] = $studentId;
             return Result::returnSuccess(json_encode($inputStuInfo));
+        }
+    }
+
+    public function delete($id) {
+        if (0 === UserModel::instance()->countNumber(array('id' => $id, 'identity' => '0'))) {
+            return Result::returnFailed('can not find user');
+        }
+        $res = UserModel::instance()->updateById($id, array('status' => -1));
+        if ($res === false) {
+            return Result::returnFailed('delete fail');
+        } else {
+            return Result::returnSuccess();
         }
     }
 }

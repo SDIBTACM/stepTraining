@@ -1,0 +1,32 @@
+<h1 class="title">{$title}</h1>
+
+<table class="table table-hover category-table">
+    <thead>
+        <tr>
+            <th class="no-show id">ID</th>
+            <th class="text name">名称</th>
+            <th class="operate">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    <foreach name="category_info" item="item">
+        <tr>
+            <td class="no-show id">{$item['id']}</td>
+            <td class="text name">{$item['name']}</td>
+            <td class="operate">
+                <button onclick="clickOnModify(this);" class="btn btn-info table-update">修改信息</button>
+                <button onclick="clickOnDelete(this);" class="btn btn-danger table-delete ">删除</button>
+                <button onclick="clickOnSave(this);" class="btn btn-warning table-save" style="display: none">保存</button>
+            </td>
+        </tr>
+    </foreach>
+        <tr>
+            <td class="no-show id"></td>
+            <td class="text name"></td>
+            <td class="operate">
+                <button onclick="clickOnCreate(this);" class="btn btn-info table-create">增加</button>
+                <button onclick="clickOnSave(this);" class="btn btn-warning table-save" style="display: none">保存</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

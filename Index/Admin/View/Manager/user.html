@@ -1,0 +1,40 @@
+<h1 class="title">{$title}</h1>
+<table class="table table-hover stu-table">
+    <thead>
+    <tr>
+        <th class="no-show id"> ID </th>
+        <th class="text nick_name">用户名</th>
+        <td class="text nick_name">昵称</td>
+        <td class="text password">密码</td>
+        <td class="status">是否锁定</td>
+        <th class="operate">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <foreach name="user_info" item="item">
+        <tr>
+            <td class="no-show id">{$item['id']}</td>
+            <td class="user_name">{$item['user_name']}</td>
+            <td class="text nick_name">{$item['nick_name']}</td>
+            <td class="text password"></td>
+            <td class="selectTF status">{$item['status']?'Yes':'No'}</td>
+            <td class="operate">
+                <button onclick="clickOnModify(this);" class="btn btn-info table-update">修改信息</button>
+                <button onclick="clickOnDelete(this);" class="btn btn-danger table-delete ">删除</button>
+                <button onclick="clickOnSave(this);" class="btn btn-warning table-save" style="display: none">保存</button>
+            </td>
+        </tr>
+    </foreach>
+    <tr>
+        <td class="no-show id"></td>
+        <td class="text user_name"></td>
+        <td class="text nick_name"></td>
+        <td class="text password"></td>
+        <td class="selectTF status"></td>
+        <td class="operate">
+            <button onclick="clickOnCreate(this);" class="btn btn-info table-create">增加</button>
+            <button onclick="clickOnSave(this);" class="btn btn-warning table-save" style="display: none">保存</button>
+        </td>
+    </tr>
+    </tbody>
+</table>

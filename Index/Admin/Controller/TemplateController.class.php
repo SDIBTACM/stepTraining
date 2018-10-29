@@ -8,9 +8,7 @@
 
 namespace Admin\Controller;
 
-
 use Admin\Model\UserModel;
-use Basic\Log;
 use Think\Controller;
 
 class TemplateController extends Controller
