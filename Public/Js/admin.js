@@ -1,9 +1,7 @@
 function clickOnCreate(Obj) {
     const tr = $(Obj).parents("tr");
-    console.log($(Obj));
-    var str = tr[0].innerHTML;
+    const str = tr[0].innerHTML;
     tr.after("<tr>" + str + "</tr>");
-    console.log(str);
     tr.find('.table-save').show(); tr.find('.table-create').hide();
 
     tr.find('.text').each(function () {
@@ -21,7 +19,20 @@ function clickOnCreate(Obj) {
     });
 
     tr.find('.selectL').each(function () {
+        const listName = $(this)[0].className.split(' ')[2];
+        const list = eval(listName);
 
+        let html = '<select class=custom-select>';
+
+        Object.keys(list).forEach(function(key){
+            if (key === 1) {
+                html += '<option selected value=' + key + '>' + list[key] + '</option>';
+            } else {
+                html += '<option value=' + key + '>' + list[key] + '</option>';
+            }
+        });
+        html = html + '</select>';
+        $(this).html(html);
     });
 
 }
@@ -50,14 +61,33 @@ function clickOnModify(Obj) {
     });
 
     tr.find('.selectL').each(function () {
+        const listName = $(this)[0].className.split(' ')[2];
+        const list = eval(listName);
 
+        const text = $(this).text();
+        let num;
+        Object.keys(list).forEach(function(key){if (list[key] === text) num = key;});
+
+        let html = '<select class=custom-select>';
+
+        Object.keys(list).forEach(function(key){
+            if (num === key) {
+                html += '<option selected value=' + key + '>' + list[key] + '</option>';
+            } else {
+                html += '<option value=' + key + '>' + list[key] + '</option>';
+            }
+        });
+        html = html + '</select>';
+        $(this).html(html);
     });
 }
 
 function clickOnDelete(Obj) {
     if (true === confirm('Do you want to delete, it can\'t be restore')) {
         $.post(window.location.href, {id: $(Obj).parents("tr").find('.id').html(), action: 'delete'},
-            function (data) {$(Obj).parents("tr").hide(); })
+            function (data) {
+            if (data === 'success') location.reload();
+            else alert(data);})
     }
 }
 
@@ -88,14 +118,15 @@ function clickOnSave(Obj) {
     });
 
     tr.find('.selectL').each(function () {
-
+        const name = $(this)[0].className.split(' ')[1];
+        const selected = $('select').val();
+        post_date[name] = selected;
     });
 
     if (post_date !== {}) {
-        $.post(window.location.href, Object.assign({action: 'save'}, post_date), function () {
-            tr.find('.table-save').hide();
-            tr.find('.table-update').show(); tr.find('.table-delete').show(); tr.find('.table-create').show();
-            location.reload();
+        $.post(window.location.href, Object.assign({action: 'save'}, post_date), function (data) {
+            if (data === 'success') location.reload();
+            else alert(data);
         });
     }
 

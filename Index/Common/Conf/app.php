@@ -15,4 +15,11 @@ return array(
         'sdibt',  // SDIBT
         'sdut'    // SDUT
     ),
+
+    'SUPPORT_GET_AC_INFO_OJ' => array(
+        'hdu',    // HDU
+        'poj',    // PKU
+        'sdibt',  // SDIBT
+        'sdut'    // SDUT
+    ),
 );

@@ -19,6 +19,7 @@ class CategoryBusiness
     }
 
     public function save($categoryInfo) {
+        if ($categoryInfo['name'] == null) return Result::returnFailed('field name not allowed to be empty');
         if ($categoryInfo['id']) {
             $res = CategoryModel::instance()->updateById($categoryInfo['id'], $categoryInfo);
             if ($res === false) {

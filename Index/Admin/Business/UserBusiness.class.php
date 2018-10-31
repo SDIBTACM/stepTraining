@@ -23,15 +23,22 @@ class UserBusiness
             if (0 == UserModel::instance()->countNumber(array('id' => $userInfo['id'], 'identity' => '1'))) {
                 return Result::returnFailed('can not find user');
             }
+
+            if (isset($userInfo['user_name']))
+
             if (false === UserModel::instance()->updateById($userInfo['id'], $userInfo)) {
                 return Result::returnFailed('update failed');
             }
+
             return Result::returnSuccess();
         } else {
             if(0 != UserModel::instance()->countNumber(array('user_name' => $userInfo['user_name'], 'identity' => '1')))
                 return Result::returnFailed('Duplicate username');
+
             $userInfo['identity'] = 1;
+
             if (!isset($userInfo['password'])) return Result::returnFailed('Empty Password');
+
             $res = UserModel::instance()->insertData($userInfo);
             if ($res === false) {
                 return Result::returnFailed('insert new fail!');
@@ -42,9 +49,10 @@ class UserBusiness
     }
 
     public function delete($id) {
-       if (0 === UserModel::instance()->countNumber(array('id' => $id, 'identity' => '1'))) {
-           return Result::returnFailed('can not find user');
-       }
+        if (0 === UserModel::instance()->countNumber(array('id' => $id, 'identity' => '1'))) {
+            return Result::returnFailed('can not find user');
+        }
+
         $res = UserModel::instance()->updateById($id, array('status' => -1));
         if ($res === false) {
             return Result::returnFailed('delete fail');

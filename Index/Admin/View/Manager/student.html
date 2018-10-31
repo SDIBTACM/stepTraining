@@ -20,12 +20,12 @@
         <tr>
             <td class="no-show id">{$item['id']}</td>
             <td class="text nick_name">{$item['nick_name']}</td>
-            <td class="text hdu">{$item['hdu']}</td>
-            <td class="text poj">{$item['poj']}</td>
-            <td class="text cf">{$item['cf']}</td>
-            <td class="text bc">{$item['bc']}</td>
-            <td class="text sdut">{$item['sdut']}</td>
-            <td class="text sdibt">{$item['sdibt']}</td>
+            <td class="text hdu">{$item['hdu']|default=''}</td>
+            <td class="text poj">{$item['poj']|default=''}</td>
+            <td class="text cf">{$item['cf']|default=''}</td>
+            <td class="text bc">{$item['bc']|default=''}</td>
+            <td class="text sdut">{$item['sdut']|default=''}</td>
+            <td class="text sdibt">{$item['sdibt']|default=''}</td>
             <td class="selectTF is-show">{$item['is_show']?'Yes':'No'}</td>
             <td class="selectTF is-update">{$item['is_update']?'Yes':'No'}</td>
             <td class="operate">

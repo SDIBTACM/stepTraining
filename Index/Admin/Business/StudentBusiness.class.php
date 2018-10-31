@@ -22,7 +22,6 @@ class StudentBusiness
 
     public function save($studentInfo) {
         $supportOj = C('SUPPORT_OJ');
-        log::debug('',$studentInfo);
 
         if ($studentInfo['id']) { // update
             $studentId = $studentInfo['id'];
@@ -34,13 +33,17 @@ class StudentBusiness
             if (false === UserModel::instance()->updateById($studentId, $studentInfo)) {
                 return Result::returnFailed('update failed');
             }
+
             foreach ($supportOj as $item) {
                 if (!isset($studentInfo[$item])) continue;
+
                 $res = UserAccountModel::instance()->queryOne(array(
                     'user_id' => $studentId,
                     'origin_oj' => $item,
                 ), array('id'));
+
                 $id = $res['id'];
+
                 if ($id) {
                     $res = UserAccountModel::instance()->updateById($id,
                         array('origin_id' => $studentInfo[$item]));
@@ -51,11 +54,13 @@ class StudentBusiness
                         'origin_oj' => $item,
                     ));
                 }
+
                 if ($res === false) {
                     return Result::returnFailed('add user account fail');
                 }
             }
             return Result::returnSuccess(json_encode($studentInfo));
+
         } else { // new
             $inputStuInfo = $studentInfo;
             $studentInfo['password'] = password_hash(
@@ -78,6 +83,7 @@ class StudentBusiness
                     return Result::returnFailed('add new user account fail');
                 }
             }
+
             $inputStuInfo['id'] = $studentId;
             return Result::returnSuccess(json_encode($inputStuInfo));
         }
@@ -87,6 +93,7 @@ class StudentBusiness
         if (0 === UserModel::instance()->countNumber(array('id' => $id, 'identity' => '0'))) {
             return Result::returnFailed('can not find user');
         }
+
         $res = UserModel::instance()->updateById($id, array('status' => -1));
         if ($res === false) {
             return Result::returnFailed('delete fail');

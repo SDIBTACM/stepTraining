@@ -1,0 +1,45 @@
+<h1 class="title">{$title}</h1>
+
+<table class="table table-hover problem-table">
+    <thead>
+        <tr>
+            <th class="no-show id">ID</th>
+            <th class="text origin_oj">源问题来源</th>
+            <th class="text origin_id">源问题编号</th>
+            <th class="selectL category_id">分类</th>
+            <th class="text description">描述</th>
+            <th class="operate">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+    <foreach name="problem_info" item="item">
+        <tr>
+            <td class="no-show id">{$item['id']}</td>
+            <td class="text origin_oj">{$item['origin_oj']}</td>
+            <td class="text origin_id">{$item['origin_id']}</td>
+            <td class="selectL category_id categoryList">{$category_list[$item['category_id']]}</td>
+            <td class="text description">{$item['description']}</td>
+            <td class="operate">
+                <button onclick="clickOnModify(this);" class="btn btn-info table-update">修改信息</button>
+                <button onclick="clickOnDelete(this);" class="btn btn-danger table-delete ">删除</button>
+                <button onclick="clickOnSave(this);" class="btn btn-warning table-save" style="display: none">保存</button>
+            </td>
+        </tr>
+    </foreach>
+    <tr>
+        <td class="no-show id"></td>
+        <td class="text origin_oj"></td>
+        <td class="text origin_id"></td>
+        <td class="selectL category_id categoryList"></td>
+        <td class="text description"></td>
+        <td class="operate">
+            <button onclick="clickOnCreate(this);" class="btn btn-info table-create">增加</button>
+            <button onclick="clickOnSave(this);" class="btn btn-warning table-save" style="display: none">保存</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    const categoryList = JSON.parse('{$category_list_json}');
+</script>
