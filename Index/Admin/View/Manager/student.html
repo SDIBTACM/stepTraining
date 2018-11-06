@@ -26,8 +26,8 @@
             <td class="text bc">{$item['bc']|default=''}</td>
             <td class="text sdut">{$item['sdut']|default=''}</td>
             <td class="text sdibt">{$item['sdibt']|default=''}</td>
-            <td class="selectTF is-show">{$item['is_show']?'Yes':'No'}</td>
-            <td class="selectTF is-update">{$item['is_update']?'Yes':'No'}</td>
+            <td class="selectTF is_show">{$item['is_show']?'Yes':'No'}</td>
+            <td class="selectTF is_update">{$item['is_update']?'Yes':'No'}</td>
             <td class="operate">
                 <button onclick="clickOnModify(this);" class="btn btn-info table-update">修改信息</button>
                 <button onclick="clickOnDelete(this);" class="btn btn-danger table-delete ">删除</button>
@@ -44,8 +44,8 @@
             <td class="text bc"></td>
             <td class="text sdut"></td>
             <td class="text sdibt"></td>
-            <td class="selectTF is-show"></td>
-            <td class="selectTF is-update"></td>
+            <td class="selectTF is_show"></td>
+            <td class="selectTF is_update"></td>
             <td class="operate">
                 <button onclick="clickOnCreate(this);" class="btn btn-info table-create">增加</button>
                 <button onclick="clickOnSave(this);" class="btn btn-warning table-save" style="display: none">保存</button>

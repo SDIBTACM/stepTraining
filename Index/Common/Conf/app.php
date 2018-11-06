@@ -22,4 +22,14 @@ return array(
         'sdibt',  // SDIBT
         'sdut'    // SDUT
     ),
+
+    'OJ_TO_CRAWLER_NAME' => array(
+        'hdu' => 'HDOJ',
+        'poj' => 'POJ',
+        'bc' => 'BestCodeOJ',
+        'cf' => 'CodeForceOJ',
+        'sdibt' => 'SDIBTOJ',
+        'sdut' => 'SDUTOJ',
+
+    )
 );

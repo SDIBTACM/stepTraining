@@ -6,10 +6,11 @@
  * Datetime: 21/03/2017 22:31
  */
 
-namespace Crawler\Manager;
+namespace Crawler\Model;
 
+use Constant\DataTableConfig;
 
-class UserManager extends BaseManager
+class UserModel extends BaseModel
 {
     private static $_instance = null;
 
@@ -27,6 +28,20 @@ class UserManager extends BaseManager
     }
 
     protected function getTableName() {
-        return "user";
+        return DataTableConfig::USER;
     }
+
+    protected function getPrimaryId() {
+        return 'id';
+    }
+
+    public function getAllStudentId() {
+        $where = array(
+            'status' => 0,
+            'is_update' => 1,
+            'identity' => 0
+        );
+        return $this->queryAll($where, array('id'));
+    }
+
 }

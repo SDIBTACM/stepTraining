@@ -1,7 +1,7 @@
 <?php
 namespace Crawler\Fetcher;
 
-use Domain\Person;
+use Crawler\Common\Person;
 
 /**
  * drunk , fix later
@@ -11,20 +11,16 @@ use Domain\Person;
  */
 class BestCodeOJFetcher extends AbsFetcherOJ
 {
-    protected function getSwitch() {
-        return C('switch_BestCodeOJ');
-    }
-
     /**
      * 获取某个学生解决题数页面的html信息
      * @param Person $person
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
-        if (empty($person->getBestcodeId())) {
+        if (empty($person->getAccountId())) {
             return null;
         }
-        return "http://bestcoder.hdu.edu.cn/rating.php?user=" . $person->getBestcodeId();
+        return "http://bestcoder.hdu.edu.cn/rating.php?user=" . $person->getAccountId();
     }
 
     /**
@@ -57,7 +53,4 @@ class BestCodeOJFetcher extends AbsFetcherOJ
         return null;
     }
 
-    public function getDbSolveKey() {
-        return "bc_rating";
-    }
 }

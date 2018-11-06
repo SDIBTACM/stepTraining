@@ -20,7 +20,7 @@ user_id | int | | Y | | key
 origin_oj | varchar(16) | | Y | | key
 origin_id | varchar(100) | | Y 
 
-### TBALE: category
+### TABLE: category
 列名 | 数据类型 | 主键 | 非空 | 默认值 | 备注
 ---|---|---|---|---|---
 id | int | Y | Y | | AUTO INCREMENT
@@ -43,7 +43,7 @@ status | tinyint |  | Y | 0 | 0 is normal, -1 is deleted
 id | int | Y | Y | | AUTO INCREMENT
 user_id | int | | Y | | key
 problem_id | int | | Y | | key
-finished_time | datetime | | Y
+ac_time | datetime | | Y
 
 ### TABLE: student_ac_num
 列名 | 数据类型 | 主键 | 非空 | 默认值 | 备注

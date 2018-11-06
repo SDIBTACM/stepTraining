@@ -7,23 +7,20 @@
  */
 
 namespace Crawler\Fetcher;
-use Domain\Person;
+use Crawler\Common\Person;
+
 class HDOJFetcher extends AbsFetcherOJ
 {
-    protected function getSwitch() {
-        return C('switch_HDOJ');
-    }
-
     /**
      * 获取某个学生解决题数页面的html信息
      * @param Person $person
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
-        if (empty($person->getHdojId())) {
+        if (empty($person->getAccountId())) {
             return null;
         }
-        return 'http://acm.hdu.edu.cn/userstatus.php?user=' . $person->getHdojId();
+        return 'http://acm.hdu.edu.cn/userstatus.php?user=' . $person->getAccountId();
     }
 
     /**
@@ -42,7 +39,10 @@ class HDOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserProblemStatusPageUrl(Person $person, $problemId) {
-        return null;
+        if (empty($person->getAccountId()) || empty($problemId)) {
+            return null;
+        }
+        return 'http://acm.hdu.edu.cn/status.php?&status=5&user='. $person->getAccountId() . '&pid='. $problemId;
     }
 
     /**
@@ -52,11 +52,7 @@ class HDOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function filterProblemStatusPattern(Person $person, $problemId) {
-        return null;
+        return '|<tr align=center ><td.*?>.*?</td><td>(.*?)</td><td><font color=red>Accepted</font></td><td><a href=".*?">.*?</a></td><td>.*?</td><td>.*?</td><td>.*?</td><td>.*?</td><td class=fixedsize>.*?</td></tr>|';
     }
 
-
-    public function getDbSolveKey() {
-        return "hdoj_solved";
-    }
 }

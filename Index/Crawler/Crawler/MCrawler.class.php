@@ -28,7 +28,7 @@ class MCrawler extends AbsCrawler
     }
 
     protected function setAgent() {
-        $agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36';
+        $agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36';
         curl_setopt($this->curl, CURLOPT_USERAGENT, $agent);
     }
 

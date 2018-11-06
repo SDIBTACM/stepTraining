@@ -7,7 +7,7 @@
  */
 
 namespace Crawler\Fetcher;
-use Domain\Person;
+use Crawler\Common\Person;
 
 
 interface IFetcherOJ
@@ -27,5 +27,4 @@ interface IFetcherOJ
      */
     public function getProblemStatus(Person $person, $problemId);
 
-    public function getDbSolveKey();
 }

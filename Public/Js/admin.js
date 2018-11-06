@@ -122,7 +122,7 @@ function clickOnSave(Obj) {
         const selected = $('select').val();
         post_date[name] = selected;
     });
-
+    console.log(post_date);
     if (post_date !== {}) {
         $.post(window.location.href, Object.assign({action: 'save'}, post_date), function (data) {
             if (data === 'success') location.reload();

@@ -6,7 +6,8 @@
  */
 function curIps() {
     $ips = array();
-    if (isset($_SERVER['HTTP_X_REAL_IP'])) {
+    if (($_SERVER['REMOTE_ADDR'] == "::1" || $_SERVER['REMOTE_ADDR'] == "127.0.0.1") &&
+        isset($_SERVER['HTTP_X_REAL_IP'])) {
         $real_ip = $_SERVER['HTTP_X_REAL_IP'];
     } else {
         $real_ip = $_SERVER['REMOTE_ADDR'];
@@ -32,7 +33,8 @@ function curIps() {
  * @return string user real ip
  */
 function curIp() {
-    if (isset($_SERVER['HTTP_X_REAL_IP'])) {
+    if (($_SERVER['REMOTE_ADDR'] == "::1" || $_SERVER['REMOTE_ADDR'] == "127.0.0.1") &&
+        isset($_SERVER['HTTP_X_REAL_IP'])) {
         return $_SERVER['HTTP_X_REAL_IP'];
     } else {
         return $_SERVER['REMOTE_ADDR'];

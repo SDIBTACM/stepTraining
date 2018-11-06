@@ -9,8 +9,8 @@
 namespace Crawler\Fetcher;
 
 
-use Domain\Person;
-use Home\Crawler\MCrawler;
+use Crawler\Common\Person;
+use Crawler\Crawler\MCrawler;
 
 abstract class AbsFetcherOJ implements IFetcherOJ
 {
@@ -20,9 +20,6 @@ abstract class AbsFetcherOJ implements IFetcherOJ
      * @return mixed
      */
     public function getSolved(Person $person) {
-        if (empty($this->getSwitch())) {
-            return 0;
-        }
         $url = $this->getUserSolvePageUrl($person);
         $pattern = $this->filterSolvePattern($person);
         if (is_null($url) || is_null($pattern)) {
@@ -41,9 +38,6 @@ abstract class AbsFetcherOJ implements IFetcherOJ
      * @return mixed
      */
     public function getProblemStatus(Person $person, $problemId) {
-        if (empty($this->getSwitch())) {
-            return false;
-        }
 
         $url = $this->getUserProblemStatusPageUrl($person, $problemId);
         $pattern = $this->filterProblemStatusPattern($person, $problemId);
@@ -53,10 +47,9 @@ abstract class AbsFetcherOJ implements IFetcherOJ
 
         $html = MCrawler::instance()->execute($url);
         $flag = preg_match($pattern, $html, $status);
+        \Basic\Log::debug('', $status);
         return $flag ? date('Y-m-d', strtotime($status[1])) : false;
     }
-
-    abstract protected function getSwitch();
 
     /**
      * 获取某个学生解决题数页面的html信息

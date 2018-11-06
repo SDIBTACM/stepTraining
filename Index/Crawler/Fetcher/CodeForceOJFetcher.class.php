@@ -1,19 +1,18 @@
 <?php
 namespace Crawler\Fetcher;
 
-use Domain\Person;
-
 /**
  * drunk , fix later
  * Created by Magic.
  * User: jiaying
  * Datetime: 17/03/2017 20:35
  */
+
+use Crawler\Common\Person;
+
 class CodeForceOJFetcher extends AbsFetcherOJ
 {
-    protected function getSwitch() {
-        return C('switch_CodeForceOJ');
-    }
+
 
     /**
      * 获取某个学生解决题数页面的html信息
@@ -21,10 +20,10 @@ class CodeForceOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
-        if (empty($person->getCodeforceId())) {
+        if (empty($person->getAccountId())) {
             return null;
         }
-        return 'http://codeforces.com/profile/' . $person->getCodeforceId();
+        return 'http://codeforces.com/profile/' . $person->getAccountId();
     }
 
     /**
@@ -56,7 +55,4 @@ class CodeForceOJFetcher extends AbsFetcherOJ
         return null;
     }
 
-    public function getDbSolveKey() {
-        return "cf_rating";
-    }
 }
