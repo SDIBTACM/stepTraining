@@ -40,7 +40,7 @@ class StudentSolvedNum extends BaseModel
         $data = array(
             'user_id' => $stuId,
             'num' => $num,
-            'origin_id' => $oj,
+            'origin_oj' => $oj,
             'catch_time' => date("Y-m-d H:i:s"),
         );
         return $this->insertData($data);

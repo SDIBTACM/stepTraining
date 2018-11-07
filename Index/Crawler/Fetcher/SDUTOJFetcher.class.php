@@ -25,7 +25,7 @@ class SDUTOJFetcher extends AbsFetcherOJ
         if (empty($person->getAccountId())) {
             return null;
         }
-        return "http://acm.sdut.edu.cn/onlinejudge2/index.php/Home/User/standings?username=" . $person->getSdutojId();
+        return "http://acm.sdut.edu.cn/onlinejudge2/index.php/Home/User/standings?username=" . $person->getAccountId();
     }
 
     /**
@@ -34,7 +34,7 @@ class SDUTOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function filterSolvePattern(Person $person) {
-        return '|<tbody>[\s\S]*?<tr>[\s\S]*?<td>1</td>[\s\S]*?<td>.*?</td>[\s\S]*?<td>.*?</td>[\s\S]*?<td>(\d+)</td>|';
+        return '|<tbody>[\s\S]*?<tr>[\s\S]*?<td>1</td>[\s\S]*?<td>.*?</td>[\s\S]*?<td>(\d+)</td>[\s\S]*?<td>.*?</td>|';
     }
 
     /**
@@ -47,7 +47,7 @@ class SDUTOJFetcher extends AbsFetcherOJ
         if (empty($person->getAccountId()) || empty($problemId)) {
             return null;
         }
-        return null;
+        return 'https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Solution/status?username=' . $person->getAccountId() . '&pid=' . $problemId . '&result=1';
     }
 
     /**
@@ -57,7 +57,7 @@ class SDUTOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function filterProblemStatusPattern(Person $person, $problemId) {
-        return null;
+        return '|<tr.*?>[\s\S]*?<input.*?>[\s\S]*?<td>.*?</td>[\s\S]*?<td.*?>[\s\S]*?<a.*?>[\s\S]*?<span.*?>.*?</span>[\s\S]*?</a>[\s\S]*?</td>[\s\S]*?<td><a.*?>.*?</a></td>[\s\S]*?<td.*?>Accepted</td>[\s\S]*?<td>.*?</td>[\s\S]*?<td>.*?</td>[\s\S]*?<td>.*?</td>[\s\S]*?<td>.*?</td>[\s\S]*?<td>(.*?)</td>[\s\S]*?</tr>|';
     }
 
 }

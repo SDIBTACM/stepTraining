@@ -18,6 +18,7 @@ use Crawler\Fetcher\SDIBTOJFetcher;
 use Crawler\Fetcher\SDUTOJFetcher;
 
 use Basic\Log;
+use Crawler\Model\StudentSolvedNum;
 
 class UpdateSolvedController extends BaseController
 {
@@ -47,7 +48,12 @@ class UpdateSolvedController extends BaseController
 
         foreach($stuAccountList as $stu) {
             $res = $handle->getSolved(new Person($stu['user_id'], $stu['origin_id']));
-            
+
+            if ($res) {
+                StudentSolvedNum::instance()->insertNew($stu['user_id'], $res, $name);
+                Log::info("New record: { person: {}, catch: {}, ac num: {} }",
+                    $stu['user_id'], $name, $res);
+            }
         }
     }
 }

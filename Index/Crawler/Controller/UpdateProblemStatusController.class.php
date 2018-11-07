@@ -20,6 +20,7 @@ use Crawler\Fetcher\BestCodeOJFetcher;
 use Crawler\Fetcher\CodeForceOJFetcher;
 use Crawler\Fetcher\SDIBTOJFetcher;
 use Crawler\Fetcher\SDUTOJFetcher;
+use Crawler\Model\StudentAcTimeModel;
 
 
 class UpdateProblemStatusController extends BaseController
@@ -54,15 +55,16 @@ class UpdateProblemStatusController extends BaseController
         foreach ($stuAccountList as $stu) {
             Log::info("Now is fetching student: {} {}", $name, $stu['origin_id']);
             $isProblemAc = StudentAcTimeModel::instance()->getProblemIsAc($stu['user_id'], $problemList);
+
             foreach ($problemList as $problem){
                 if (in_array($problem['problem_id'], $isProblemAc)) return ;
 
                 $res = $handle->getProblemStatus(new Person($stu['user_id'], $stu['origin_id']), $problem['origin_id']);
                 
-                if ($res) { 
+                if ($res) {
                     StudentAcTimeModel::instance()->insertNew($stu['user_id'], $problem['problem_id'], $res);
-                    Log::info("New record: {person: {}, catch: {} {} ac time: {} }", 
-                        $stu['user_id'], $name, $problem['problem_id'], $res);
+                    Log::info("New record: { person: {}, catch: {} {}, ac time: {} }",
+                        $stu['user_id'], $name, $problem['origin_id'], $res);
                 }
             }
         }

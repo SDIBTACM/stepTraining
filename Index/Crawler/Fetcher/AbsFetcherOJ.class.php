@@ -47,7 +47,6 @@ abstract class AbsFetcherOJ implements IFetcherOJ
 
         $html = MCrawler::instance()->execute($url);
         $flag = preg_match($pattern, $html, $status);
-        \Basic\Log::debug('', $status);
         return $flag ? date('Y-m-d', strtotime($status[1])) : false;
     }
 
