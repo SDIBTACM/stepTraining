@@ -46,4 +46,29 @@ class StudentAcTimeModel extends BaseModel
 
         return $this->insertData($data);
     }
+
+    public function isExist($stuId, $proId) {
+        $where = array(
+            'user_id' => $stuId,
+            'problem_id' => $proId,
+        );
+        
+        return $this->countNumber($where) > 0 ? true : false;
+    }
+
+    public function getProblemIsAc($userId, $problemList) {
+        $problemId = array();
+        foreach ($problemList as $pro) array_push($problemId, $pro['problem_id']);
+
+        $where = array(
+            'problem_id' => array('IN', $problemId),
+            'user_id' => $userId,
+        );
+
+        $query = $this->queryAll($where, array('problem_id'));
+
+        $result = array();
+        foreach ($query as $item) array_push($result, $item['problem_id']);
+        return $result;
+    }
 }

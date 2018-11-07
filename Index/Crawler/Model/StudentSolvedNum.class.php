@@ -45,4 +45,5 @@ class StudentSolvedNum extends BaseModel
         );
         return $this->insertData($data);
     }
+
 }
