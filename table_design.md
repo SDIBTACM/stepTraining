@@ -53,3 +53,17 @@ catch_time | datetime | | Y
 user_id | int | | Y | | key
 origin_oj | varchar(16) | | Y | | key
 num | int | | Y | 0 
+
+### TABLE: plan
+列名 | 数据类型 | 主键 | 非空 | 默认值 | 备注
+---|---|---|---|---|---
+id | int | Y | Y | | AUTO INCREMENT
+name | varchar | | Y | |
+status | tinyint | | Y | 0 | 0 is normal, -1 is deleted
+
+### TABLEL: plan_problem
+列名 | 数据类型 | 主键 | 非空 | 默认值 | 备注
+---|---|---|---|---|---
+id | int | Y | Y | | AUTO INCREMENT
+plan_id | int | | Y | key
+problem_id | int |  | Y | key
