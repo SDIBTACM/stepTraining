@@ -20,9 +20,6 @@ class CodeForceOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
-        if (empty($person->getAccountId())) {
-            return null;
-        }
         return 'http://codeforces.com/profile/' . $person->getAccountId();
     }
 

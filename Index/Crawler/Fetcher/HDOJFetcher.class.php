@@ -17,9 +17,6 @@ class HDOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
-        if (empty($person->getAccountId())) {
-            return null;
-        }
         return 'http://acm.hdu.edu.cn/userstatus.php?user=' . $person->getAccountId();
     }
 
@@ -39,9 +36,6 @@ class HDOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserProblemStatusPageUrl(Person $person, $problemId) {
-        if (empty($person->getAccountId()) || empty($problemId)) {
-            return null;
-        }
         return 'http://acm.hdu.edu.cn/status.php?&status=5&user='. $person->getAccountId() . '&pid='. $problemId;
     }
 

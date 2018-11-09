@@ -22,9 +22,6 @@ class SDUTOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
-        if (empty($person->getAccountId())) {
-            return null;
-        }
         return "http://acm.sdut.edu.cn/onlinejudge2/index.php/Home/User/standings?username=" . $person->getAccountId();
     }
 
@@ -44,9 +41,6 @@ class SDUTOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserProblemStatusPageUrl(Person $person, $problemId) {
-        if (empty($person->getAccountId()) || empty($problemId)) {
-            return null;
-        }
         return 'https://acm.sdut.edu.cn/onlinejudge2/index.php/Home/Solution/status?username=' . $person->getAccountId() . '&pid=' . $problemId . '&result=1';
     }
 

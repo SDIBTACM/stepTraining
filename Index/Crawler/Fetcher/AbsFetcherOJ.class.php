@@ -20,6 +20,9 @@ abstract class AbsFetcherOJ implements IFetcherOJ
      * @return mixed
      */
     public function getSolved(Person $person) {
+        if (empty($person->getAccountId())) {
+            return 0;
+        }
         $url = $this->getUserSolvePageUrl($person);
         $pattern = $this->filterSolvePattern($person);
         if (is_null($url) || is_null($pattern)) {
@@ -38,7 +41,9 @@ abstract class AbsFetcherOJ implements IFetcherOJ
      * @return mixed
      */
     public function getProblemStatus(Person $person, $problemId) {
-
+        if (empty($person->getAccountId()) || empty($problemId)) {
+            return false;
+        }
         $url = $this->getUserProblemStatusPageUrl($person, $problemId);
         $pattern = $this->filterProblemStatusPattern($person, $problemId);
         if (is_null($url) || is_null($pattern)) {

@@ -19,9 +19,6 @@ class POJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
-        if (empty($person->getAccountId())) {
-            return null;
-        }
         return 'http://poj.org/userstatus?user_id=' . $person->getAccountId();
     }
 
@@ -41,9 +38,6 @@ class POJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserProblemStatusPageUrl(Person $person, $problemId) {
-        if (empty($person->getAccountId()) || empty($problemId)) {
-            return null;
-        }
         return "http://poj.org/status?problem_id=" . $problemId . "&user_id=" . $person->getAccountId() . "&result=0";
     }
 

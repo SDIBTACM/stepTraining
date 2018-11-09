@@ -14,9 +14,6 @@ class SDIBTOJFetcher extends AbsFetcherOJ
 {
 
     protected function getUserSolvePageUrl(Person $person) {
-        if (empty($person->getAccountId())) {
-            return null;
-        }
         return 'http://acm.sdibt.edu.cn/JudgeOnline/userinfo.php?user=' . $person->getAccountId();
     }
 
@@ -25,9 +22,6 @@ class SDIBTOJFetcher extends AbsFetcherOJ
     }
 
     protected function getUserProblemStatusPageUrl(Person $person, $problemId) {
-        if (empty($person->getAccountId()) || empty($problemId)) {
-            return null;
-        }
         return 'http://acm.sdibt.edu.cn/JudgeOnline/status.php?jresult=4&problem_id=' . $problemId . '&user_id=' . $person->getAccountId();
     }
 

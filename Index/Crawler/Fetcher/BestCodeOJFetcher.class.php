@@ -17,9 +17,6 @@ class BestCodeOJFetcher extends AbsFetcherOJ
      * @return mixed
      */
     protected function getUserSolvePageUrl(Person $person) {
-        if (empty($person->getAccountId())) {
-            return null;
-        }
         return "http://bestcoder.hdu.edu.cn/rating.php?user=" . $person->getAccountId();
     }
 
