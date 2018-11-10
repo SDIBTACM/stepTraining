@@ -77,7 +77,7 @@ class TemplateController extends Controller
 
     public function _empty() {
         http_response_code(404);
-        $this->alertError("404", U('Admin/Manager/student'));
+        $this->alertError("404", U('/Admin/Student/index'));
     }
 
     protected function ajaxCodeReturn($code, $message, $data = array()) {

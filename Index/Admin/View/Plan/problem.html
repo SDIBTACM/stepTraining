@@ -1,0 +1,82 @@
+<h2 class="title" style="text-align: center;">{$title}</h2>
+
+<form class="" method="get">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label for="OJSelect">OJ</label>
+            <select name="oj" id="OJSelect" class="form-control">
+                <option value="" {$selected['oj']==0 ?'selected':''}>All</option>
+                <foreach name="oj_list" item="item">
+                    <option value="{$item}" {$selected['oj']==$item ?'selected':''}>{$item}</option>
+                </foreach>
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="CategorySelect">Category</label>
+            <select name="cate" id="CategorySelect" class="form-control">
+                <option value="" {$selected['cate_id']==0 ?'selected':''}>All</option>
+                <foreach name="category_list" key="key" item="item">
+                    <option value="{$key}" {$selected['cate_id']==$key ?'selected':''}>{$item}</option>
+                </foreach>
+            </select>
+        </div>
+
+        <div class="form-group col-md-4">
+            <label for="SubmitButton" >Submit</label>
+
+            <div>
+                <input id="SubmitButton" type="submit" class="btn btn-info">
+            </div>
+        </div>
+    </div>
+
+
+</form>
+
+<div class="problem-list">
+    <table class="table table-hover pro-table">
+        <thead>
+        <tr>
+            <th class="origin-oj">来源</th>
+            <th class="cate">分类</th>
+            <th class="desc">描述</th>
+            <th class="operate">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="problem_list" item="item">
+            <tr>
+                <td class="origin-oj">{$item['origin_oj']} {$item['origin_id']}</td>
+                <td class="cate">{$category_list[$item['category_id']]}</td>
+                <td class="desc">{$item['description']}</td>
+                <td class="operate">
+                    <button onclick="add(this);" class="btn btn-info add" data-pid="{$item['problem_id']}"
+                            {:in_array($item['problem_id'], $problem_selected) ?'style="display: none;"':'0'}}>add</button>
+                    <button onclick="del(this);" class="btn btn-danger del" data-pid="{$item['problem_id']}"
+                            {:in_array($item['problem_id'], $problem_selected) ? '':'style="display: none;"'}}>del</button>
+                </td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function add(Obj) {
+        const td = $(Obj).parents("td");
+        const pid = $(Obj).data('pid');
+        $.post(window.location.href, {action: 'add', pid: pid} , function (data) {
+            if(data === 'success') { td.find('.add').hide(); td.find('.del').show() }
+            else alert(data);
+        });
+    }
+    function del(Obj) {
+        const td = $(Obj).parents("td");
+        const pid = $(Obj).data('pid');
+        $.post(window.location.href, {action: 'del', pid: pid} , function (data) {
+            if(data === 'success') { td.find('.add').show(); td.find('.del').hide() }
+            else alert(data);
+        });
+    }
+</script>

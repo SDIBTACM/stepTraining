@@ -20,32 +20,40 @@ class UserBusiness
 
     public function save($userInfo) {
         if ($userInfo['id']) {
-            if (0 == UserModel::instance()->countNumber(array('id' => $userInfo['id'], 'identity' => '1'))) {
-                return Result::returnFailed('can not find user');
-            }
+            return $this->update($userInfo);
+        } else {
+            return $this->add($userInfo);
+        }
+    }
 
-            if (isset($userInfo['user_name']))
+    private function add($userInfo) {
+        if(0 != UserModel::instance()->countNumber(array('user_name' => $userInfo['user_name'], 'identity' => '1')))
+            return Result::returnFailed('Duplicate username');
+
+        $userInfo['identity'] = 1;
+
+        if (!isset($userInfo['password'])) return Result::returnFailed('Empty Password');
+
+        $res = UserModel::instance()->insertData($userInfo);
+        if ($res === false) {
+            return Result::returnFailed('insert new fail!');
+        } else {
+            return Result::returnSuccess();
+        }
+    }
+
+    private function update($userInfo) {
+        if (0 == UserModel::instance()->countNumber(array('id' => $userInfo['id'], 'identity' => '1'))) {
+            return Result::returnFailed('can not find user');
+        }
+
+        if (isset($userInfo['user_name']))
 
             if (false === UserModel::instance()->updateById($userInfo['id'], $userInfo)) {
                 return Result::returnFailed('update failed');
             }
 
-            return Result::returnSuccess();
-        } else {
-            if(0 != UserModel::instance()->countNumber(array('user_name' => $userInfo['user_name'], 'identity' => '1')))
-                return Result::returnFailed('Duplicate username');
-
-            $userInfo['identity'] = 1;
-
-            if (!isset($userInfo['password'])) return Result::returnFailed('Empty Password');
-
-            $res = UserModel::instance()->insertData($userInfo);
-            if ($res === false) {
-                return Result::returnFailed('insert new fail!');
-            } else {
-                return Result::returnSuccess();
-            }
-        }
+        return Result::returnSuccess();
     }
 
     public function delete($id) {

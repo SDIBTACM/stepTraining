@@ -83,7 +83,7 @@ function clickOnModify(Obj) {
 }
 
 function clickOnModifyNewWindows(url) {
-    window.open (url, '', 'top=64, left=64, height=512, width=512, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
+    window.open (url, '', 'top=64, left=64, height=768, width=768, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
 }
 
 function clickOnDelete(Obj) {

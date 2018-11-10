@@ -48,11 +48,11 @@ class ManagerController extends TemplateMustLoginController
                     $id = I('post.id');
                     $res = ProblemBusiness::instance()->delete($id);
 
-                    if (false === $res) {
+                    if (!$res->isSuccess()) {
                         //header('HTTP/1.0 400 Bad Request');
-                        echo 'fail';
-                        Log::info('user: {}, request: delete, status: fail, more info: {}',
-                            $this->userInfo['username'], I('post'));
+                        echo $res->getMessage();
+                        Log::info('user: {}, request: delete, status: fail, more info: {}, post: {}',
+                            $this->userInfo['user_name'], $res->getMessage(), I('post'));
                     } else {
                         echo 'success';
                     }
@@ -168,7 +168,7 @@ class ManagerController extends TemplateMustLoginController
                         //header('HTTP/1.0 400 Bad Request');
                         echo $res->getMessage();;
                         Log::info('user: {}, request: delete, status: fail, more info: {}',
-                            $this->userInfo['username'], I('post.'));
+                            $this->userInfo['user_name'], I('post.'));
                     } else {
                         echo 'success';
                     }
