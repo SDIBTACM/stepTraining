@@ -17,7 +17,7 @@
             <td class="selectTF is_show">{$item['is_show']?'Yes':'No'}</td>
             <td class="selectTF is_update">{$item['is_update']?'Yes':'No'}</td>
             <td class="operate">
-                <button onclick="clickOnModifyNewWindows('{:U(\'Admin/Student/edit/id/' . $item['id'])}')" class="btn btn-info table-update">修改信息</button>
+                <button onclick="clickOnModifyNewWindows('{:U('Admin/Student/edit/id/' . $item['id'])}')" class="btn btn-info table-update">修改信息</button>
                 <button onclick="clickOnDelete2('{:U('Admin/Student/delete/')}', {$item['id']})"
                         class="btn btn-danger table-delete ">删除</button>
             </td>
