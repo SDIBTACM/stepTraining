@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f7F7F7;">
     <a class="navbar-brand" href="#">Step Training Backstage</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" href="{:U('Admin/Student/index')}"> 学生管理 </a>
-            <a class="nav-item nav-link" href="{:U('Admin/Manager/category')}"> 分类管理 </a>
-            <a class="nav-item nav-link" href="{:U('Admin/Manager/problem')}"> 问题管理 </a>
-            <a class="nav-item nav-link" href="{:U('Admin/Plan/index')}"> 计划管理 </a>
-            <a class="nav-item nav-link" href="{:U('Admin/Manager/user')}"> 用户管理 </a>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-item nav-link" href="{:U('Admin/Student/index')}"> 学生管理 </a></li>
+            <li class="nav-item"><a class="nav-item nav-link" href="{:U('Admin/Manager/category')}"> 分类管理 </a></li>
+            <li class="nav-item"><a class="nav-item nav-link" href="{:U('Admin/Manager/problem')}"> 问题管理 </a></li>
+            <li class="nav-item"><a class="nav-item nav-link" href="{:U('Admin/Plan/index')}"> 计划管理 </a></li>
+            <li class="nav-item"><a class="nav-item nav-link" href="{:U('Admin/Manager/user')}"> 用户管理 </a></li>
+        </ul>
     </div>
     <a class="hello-user">
         Welcome you: {$user}
