@@ -1,0 +1,95 @@
+
+<h2 class="title" style="text-align: center;">{$title}</h2>
+<form action="./" method="post" id="edit">
+    <input name="id" class="no-show " value="{$info['id']}">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="nameInput">姓名</label>
+        <div class="col-sm-8">
+            <input type="text" maxlength="32" name="nick_name" class="form-control" id="nameInput" placeholder="Student Name" value="{$info['nick_name']|default=''}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="PojInput">POJ</label>
+        <div class="col-sm-8">
+            <input type="text" maxlength="64" name="poj" class="form-control" id="PojInput" placeholder="Poj Account" value="{$info['poj']|default=''}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="HudInput">HDUOJ</label>
+        <div class="col-sm-8">
+            <input type="text" maxlength="64" name="hdu" class="form-control" id="HudInput" placeholder="HDU Account" value="{$info['hdu']|default=''}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="ZojInput">ZOJ</label>
+        <div class="col-sm-8">
+            <input type="text" maxlength="64" name="zoj" class="form-control" id="ZojInput" placeholder="ZOJ Account" value="{$info['zoj']|default=''}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="CfInput">CodeForces</label>
+        <div class="col-sm-8">
+            <input type="text" maxlength="64" name="cf" class="form-control" id="CfInput" placeholder="CodeForces Account" value="{$info['cf']|default=''}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="BcInput">BestCode</label>
+        <div class="col-sm-8">
+            <input type="text" maxlength="64" name="bc" class="form-control" id="BcInput" placeholder="BestCode Account" value="{$info['bc']|default=''}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="SdibtInput">SDIBT</label>
+        <div class="col-sm-8">
+            <input type="text" maxlength="64" name="sdibt" class="form-control" id="SdibtInput" placeholder="Sdibtoj Account" value="{$info['sdibt']|default=''}">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="SdutInput">SDUT</label>
+        <div class="col-sm-8">
+            <input type="text" maxlength="64" name="sdut" class="form-control" id="SdutInput" placeholder="Sdutoj Account" value="{$info['sdut']|default=''}">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="isUpdateRadios">是否更新</label>
+        <div class="col-sm-8" id="isUpdateRadios">
+            <div class="form-check">
+                <label class="radio-inline">
+                    <input type="radio" name="is_update" id="isUpdateRadios-True" value="1" {$info['is_update']?'checked':''}>Yes
+                </label>
+
+                <label class="radio-inline">
+                    <input type="radio" name="is_update" id="isUpdateRadios-False" value="0" {$info['is_update']?'':'checked'}>No
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="isUpdateRadios">是否显示</label>
+        <div class="col-sm-8" id="isShowRadios">
+            <div class="form-check">
+                <label class="radio-inline">
+                    <input type="radio" name="is_show" id="isShowRadios-True" value="1" {$info['is_show']?'checked':''}>Yes
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="is_show" id="isShowRadios-False" value="0" {$info['is_show']?'':'checked'}>No
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <input class="btn-warning btn" value="Submit" onclick="editClickOnSave(this)">
+
+</form>
+
+<script>
+    function editClickOnSave(Obj) {
+        const post_data = $("#edit").serializeArray();
+        $.post(window.location.href, post_data, function (data) {
+            if (data === 'success') alert('success') && location.reload();
+            else alert(data);
+        });
+    }
+</script>

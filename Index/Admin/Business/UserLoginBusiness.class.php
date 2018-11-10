@@ -36,7 +36,7 @@ class UserLoginBusiness
 
         if (true === password_verify($password, $userInfo['password'])) {
             $this->_updatePasswordAfterLoginSuccess($userInfo['id'], $password);
-            session('user_id', $userInfo['id']);
+            session('training.user_id', $userInfo['id']);
             return Result::returnSuccess();
         } else {
             log::info('ip: {} try to login as user: {} with a wrong password', curIp(), $password);

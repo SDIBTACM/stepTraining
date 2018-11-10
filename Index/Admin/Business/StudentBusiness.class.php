@@ -26,7 +26,7 @@ class StudentBusiness
         if ($studentInfo['id']) { // update
             $studentId = $studentInfo['id'];
 
-            if (0 == UserModel::instance()->countNumber(array('id' => $studentId, 'identity' => '0'))) {
+            if (0 == UserModel::instance()->countNumber(array('id' => $studentId, 'identity' => '0', 'status' => 0))) {
                 return Result::returnFailed('can not find user');
             }
 
@@ -90,6 +90,7 @@ class StudentBusiness
     }
 
     public function delete($id) {
+        Log::debug('', $id);
         if (0 === UserModel::instance()->countNumber(array('id' => $id, 'identity' => '0'))) {
             return Result::returnFailed('can not find user');
         }

@@ -1,0 +1,36 @@
+<h1 class="title">{$title}</h1>
+<table class="table table-hover stu-table">
+    <thead>
+    <tr>
+        <th class="no-show id"> ID </th>
+        <th class="text nick_name">姓名</th>
+        <th class="selectTF is-show">是否显示</th>
+        <th class="selectTF is-update">是否更新</th>
+        <th class="operate">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <foreach name="student_info" item="item">
+        <tr>
+            <td class="no-show id">{$item['id']}</td>
+            <td class="text nick_name">{$item['nick_name']}</td>
+            <td class="selectTF is_show">{$item['is_show']?'Yes':'No'}</td>
+            <td class="selectTF is_update">{$item['is_update']?'Yes':'No'}</td>
+            <td class="operate">
+                <button onclick="clickOnModifyNewWindows('{:U(\'Admin/Student/edit/id/' . $item['id'])}')" class="btn btn-info table-update">修改信息</button>
+                <button onclick="clickOnDelete2('{:U('Admin/Student/delete/')}', {$item['id']})"
+                        class="btn btn-danger table-delete ">删除</button>
+            </td>
+        </tr>
+    </foreach>
+    <tr>
+        <td class="no-show id"></td>
+        <td class="text nick_name"></td>
+        <td class="selectTF is_show"></td>
+        <td class="selectTF is_update"></td>
+        <td class="operate">
+            <button onclick="clickOnModifyNewWindows('{:U('Admin/Student/edit/')}')" class="btn btn-info table-create">增加</button>
+        </td>
+    </tr>
+    </tbody>
+</table>

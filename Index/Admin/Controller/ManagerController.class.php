@@ -21,91 +21,6 @@ use Basic\Log;
 
 class ManagerController extends TemplateMustLoginController
 {
-    public function student() {
-        if (IS_POST) {
-            $action = I('post.action');
-
-            switch($action) {
-                case 'save': {
-                    $supportOj = C('SUPPORT_OJ');
-                    $studentInfo['id'] = I('post.id', 0);
-                    $studentInfo['nick_name'] = I('post.nick_name');
-                    $studentInfo['is_show'] = I('post.is_show', 0);
-                    $studentInfo['is_update'] = I('post.is_update', 0);
-                    foreach ($supportOj as $item) {
-                        if (I('post.' . $item, null)) {
-                            $studentInfo[$item] = I('post.' . $item);
-                        }
-                    }
-                    $res = StudentBusiness::instance()->save($studentInfo);
-
-                    if (!$res->isSuccess()) {
-                        //header('HTTP/1.0 400 Bad Request');
-                        echo $res->getMessage();
-                        Log::info('user: {}, request: save, status: fail, more info: {}, post: {}',
-                            $this->userInfo['user_name'], $res->getMessage(), I('post.'));
-                    } else {
-                        echo 'success';
-                    }
-                    break ;
-
-                }
-
-                case 'delete' : {
-                    $id = I('post.id');
-                    $res = StudentBusiness::instance()->delete($id);
-                    if (!$res->isSuccess()) {
-                        //header('HTTP/1.0 400 Bad Request');
-                        echo $res->getMessage();
-                        Log::info('user: {}, request: save, status: fail, more info: {}, post: {}',
-                            $this->userInfo['user_name'], $res->getMessage(), I('post.'));
-                    } else {
-                        echo 'success';
-                    }
-                    break;
-                }
-                default : {
-                    log::info('User: {}, ip :{} give a wrong action: {}', $this->userInfo['user_name'], curIp(), $action);
-                    header('HTTP/1.0 400 Bad Request');
-                    echo 'fail';
-                    break;
-                }
-            }
-            return ;
-
-        } else {
-            $where = array(
-                'identity' => 0,
-                'status' => 0,
-            );
-            $field = array(
-                'id',
-                'nick_name',
-                'is_update',
-                'is_show',
-            );
-            $supportOj = C('SUPPORT_OJ');
-
-            $studentResult = UserModel::instance()->queryAll($where, $field);
-            $studentInfo = array();
-            foreach ($studentResult as $item) {
-                $studentInfo[$item['id']] = $item;
-                $account = UserAccountModel::instance()->queryAll(
-                    array('user_id' => $item['id']),
-                    array('origin_oj', 'origin_id'));
-
-                foreach ($account as $value) {
-                    if (in_array($value['origin_oj'], $supportOj)) {
-                        $studentInfo[$item['id']][$value['origin_oj']] = $value['origin_id'];
-                    }
-                }
-            }
-            $this->assign('student_info', $studentInfo);
-            $this->assign('title', 'Student Management');
-            $this->auto_display('student');
-        }
-    }
-
     public function problem() {
         if (IS_POST) {
             $action = I('post.action');
@@ -283,4 +198,5 @@ class ManagerController extends TemplateMustLoginController
             $this->auto_display('user');
         }
     }
+
 }

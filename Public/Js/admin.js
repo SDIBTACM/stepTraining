@@ -82,10 +82,22 @@ function clickOnModify(Obj) {
     });
 }
 
+function clickOnModifyNewWindows(url) {
+    window.open (url, '', 'top=64, left=64, height=512, width=512, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
+}
+
 function clickOnDelete(Obj) {
     if (true === confirm('Do you want to delete, it can\'t be restore')) {
         $.post(window.location.href, {id: $(Obj).parents("tr").find('.id').html(), action: 'delete'},
             function (data) {
+            if (data === 'success') location.reload();
+            else alert(data);})
+    }
+}
+
+function clickOnDelete2(url, id) {
+    if (true === confirm('Do you want to delete, it can\'t be restore')) {
+        $.post(url, {id: id}, function (data) {
             if (data === 'success') location.reload();
             else alert(data);})
     }

@@ -27,7 +27,7 @@ class TemplateController extends Controller
     }
 
     private function _importUserInfoFromSession() {
-        $userId = session('user_id');
+        $userId = session('training.user_id');
         if (!empty($userId)) {
             $this->userInfo = UserModel::instance()->getById($userId, array('user_name', 'nick_name', 'identity'));
             $this->userInfo['user_id'] = $userId;

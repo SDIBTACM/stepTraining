@@ -52,6 +52,16 @@ abstract class BaseModel
     }
 
     /**
+     * @param $where mixed where
+     * @return int|bool exec result
+     */
+
+    public function delByWhere($where) {
+        if (is_null($where)) return false;
+        return $this->getDao()->where($where)->delete();
+    }
+
+    /**
      * @param $id mixed must be primary key
      * @param array $field the field you want
      * @return mixed|null exec result

@@ -13,14 +13,16 @@ return array(
         'bc',     // BestCode
         'cf',     // CodeForce
         'sdibt',  // SDIBT
-        'sdut'    // SDUT
+        'sdut',    // SDUT
+        'zoj',     //ZOJ
     ),
 
     'SUPPORT_GET_AC_INFO_OJ' => array(
         'hdu',    // HDU
         'poj',    // PKU
         'sdibt',  // SDIBT
-        'sdut'    // SDUT
+        'sdut',    // SDUT
+        'zoj',     //ZOJ
     ),
 
     'OJ_TO_CRAWLER_NAME' => array(
@@ -30,6 +32,6 @@ return array(
         'cf' => 'CodeForceOJ',
         'sdibt' => 'SDIBTOJ',
         'sdut' => 'SDUTOJ',
-
+        'zoj' => 'ZOJ',
     )
 );
