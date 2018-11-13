@@ -3,7 +3,7 @@
  *
  * Created by Dream.
  * User: Boxjan
- * Datetime: 18-10-24 下午4:47
+ * Datetime: 18-10-24 下午4:56
  */
 
 namespace Home\Model;
@@ -11,9 +11,8 @@ namespace Home\Model;
 
 use Constant\DataTableConfig;
 
-class ProblemModel extends BaseModel
+class CategoryModel extends BaseModel
 {
-
     private static $_instance = null;
 
     private function __construct() {
@@ -30,11 +29,14 @@ class ProblemModel extends BaseModel
     }
 
     protected function getTableName() {
-        return DataTableConfig::PROBLEM;
+        return DataTableConfig::CATEGORY;
     }
 
     protected function getPrimaryId() {
         return 'id';
     }
 
+    public function getAll($field = array()) {
+        return $this->queryAll(array('status' => 0), $field);
+    }
 }

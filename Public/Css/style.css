@@ -1,0 +1,115 @@
+body {
+    background-color: #efefef;
+}
+
+.no-show {
+    display: none;
+}
+
+h1.title{
+    font-size: 2em;
+    font-weight: 300;
+    line-height: 35px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+
+.table {
+    width: auto;
+}
+
+.table-responsive {
+    overflow-y: auto;
+}
+
+table {
+    text-align: center;
+    table-layout: fixed;
+}
+
+table td, table th {
+    position:relative;
+}
+
+table thead th {
+    font-size: 1em;
+    vertical-align: center;
+}
+
+table thead tr {
+    position: relative;
+}
+
+table tbody {
+    position: relative;
+}
+
+table .question {
+    min-width: 270px;
+    height: 30px;
+}
+table .student {
+    min-width: 105px;
+    height: 30px;
+}
+
+table th.question b.category {
+    font-weight: lighter;
+    font-style: initial;
+    font-size: .7em;
+    margin-left: 0;
+    color: #7f7f7f;
+}
+
+table th.question b.problem {
+    font-weight: normal;
+    font-size: 1.2em;
+}
+
+table .name {
+    min-width: 90px;
+    max-width: 90px;
+    height: 30px;
+}
+
+table .class {
+    min-width: 105px;
+    max-width: 105px;
+    height: 30px;
+}
+
+table .solved {
+    min-width: 75px;
+    max-width: 140px;
+    height: 30px;
+
+}
+
+table .rating {
+    min-width: 75px;
+    max-width: 160px;
+    height: 30px;
+
+}
+
+
+#footer{
+    line-height: 1.2;
+    text-align: center;
+    width: auto;
+    padding: 15px 40px;
+    border-top: 1px solid #fff;
+    font-size: .9em;
+}
+
+@media (min-width: 1050px) {
+    .container {
+        max-width: 1024px;
+    }
+}
+
+@media (min-width: 1320px) {
+    .container {
+        max-width: 1280px;
+    }
+}

@@ -9,6 +9,7 @@
 namespace Crawler\Fetcher;
 
 
+use Basic\Log;
 use Crawler\Common\Person;
 use Crawler\Crawler\MCrawler;
 
@@ -44,6 +45,7 @@ abstract class AbsFetcherOJ implements IFetcherOJ
         if (empty($person->getAccountId()) || empty($problemId)) {
             return false;
         }
+
         $url = $this->getUserProblemStatusPageUrl($person, $problemId);
         $pattern = $this->filterProblemStatusPattern($person, $problemId);
         if (is_null($url) || is_null($pattern)) {

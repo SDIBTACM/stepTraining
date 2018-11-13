@@ -1,19 +1,20 @@
 <?php
 /**
- *
- * Created by Dream.
+ * Dreaming, fixed later
+ * I am not sure why this works but it fixes the problem.
  * User: Boxjan
- * Datetime: 18-10-24 下午4:47
+ * Datetime: Nov 10, 2018 08:25
  */
+
 
 namespace Home\Model;
 
 
+use Basic\Log;
 use Constant\DataTableConfig;
 
-class ProblemModel extends BaseModel
+class PlanModel extends BaseModel
 {
-
     private static $_instance = null;
 
     private function __construct() {
@@ -30,11 +31,10 @@ class ProblemModel extends BaseModel
     }
 
     protected function getTableName() {
-        return DataTableConfig::PROBLEM;
+        return DataTableConfig::PLAN;
     }
 
     protected function getPrimaryId() {
         return 'id';
     }
-
 }

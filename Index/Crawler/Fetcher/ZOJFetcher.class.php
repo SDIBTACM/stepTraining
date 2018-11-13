@@ -11,7 +11,7 @@ namespace Crawler\Fetcher;
 
 use Crawler\Common\Person;
 
-class ZOJFetcherOJ extends AbsFetcherOJ
+class ZOJFetcher extends AbsFetcherOJ
 {
 
     protected function getUserSolvePageUrl(Person $person) {

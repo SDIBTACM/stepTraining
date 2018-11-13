@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f7F7F7;">
+    <a class="navbar-brand" href="#">Step Training</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-item nav-link"href="{:U('/Home')}">统计表</a></li>
+            <foreach name="plan_list" item="plan">
+                <li class="nav-item"><a class="nav-item nav-link" href="{:U('/Home/Plan/index', array('id' => $plan['id']) )}">{$plan['name']}</a></li>
+            </foreach>
+            <li class="nav-item"><a class="nav-item nav-link" href="{:U('/Admin/Student/index')}">后台管理</a></li>
+        </ul>
+    </div>
+</nav>

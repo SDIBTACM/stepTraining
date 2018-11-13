@@ -3,17 +3,16 @@
  *
  * Created by Dream.
  * User: Boxjan
- * Datetime: 18-10-24 下午4:47
+ * Datetime: 11/3/18 1:58 PM
  */
 
-namespace Home\Model;
+namespace Crawler\Model;
 
 
 use Constant\DataTableConfig;
 
-class ProblemModel extends BaseModel
+class StudentSolvedNumModel extends BaseModel
 {
-
     private static $_instance = null;
 
     private function __construct() {
@@ -30,11 +29,21 @@ class ProblemModel extends BaseModel
     }
 
     protected function getTableName() {
-        return DataTableConfig::PROBLEM;
+        return DataTableConfig::PROBLEM_AC_NUM;
     }
 
     protected function getPrimaryId() {
         return 'id';
+    }
+
+    public function insertNew($stuId, $num, $oj) {
+        $data = array(
+            'user_id' => $stuId,
+            'num' => $num,
+            'origin_oj' => $oj,
+            'catch_time' => date("Y-m-d H:i:s"),
+        );
+        return $this->insertData($data);
     }
 
 }

@@ -28,6 +28,7 @@ class StudentController extends TemplateMustLoginController
         );
         $field = array(
             'id',
+            'class',
             'nick_name',
             'is_update',
             'is_show',
@@ -43,13 +44,14 @@ class StudentController extends TemplateMustLoginController
             $supportOj = C('SUPPORT_OJ');
             $studentInfo['id'] = I('post.id', 0);
             $studentInfo['nick_name'] = I('post.nick_name');
+            $studentInfo['class'] = I('post.class');
             $studentInfo['is_show'] = I('post.is_show', 0);
             $studentInfo['is_update'] = I('post.is_update', 0);
             foreach ($supportOj as $item) {
                 if (I('post.' . $item, null)) {
                     $studentInfo[$item] = I('post.' . $item);
                 }
-            }
+            }Log::debug('',$studentInfo);
             $res = StudentBusiness::instance()->save($studentInfo);
 
             if (!$res->isSuccess()) {
@@ -72,6 +74,7 @@ class StudentController extends TemplateMustLoginController
             $field = array(
                 'id',
                 'nick_name',
+                'class',
                 'is_update',
                 'is_show',
             );

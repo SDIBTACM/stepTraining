@@ -43,8 +43,9 @@ class PlanController extends TemplateMustLoginController
     }
 
     public function problem() {
-        $planId = I('get.id', 0, 'intval');
-        if ($planId == 0 || 0 == ProblemModel::instance()->countNumber(array('id' => $planId, 'status' => 0)))
+
+        $planId = I('get.id', 0, 'intval');Log::debug('', PlanModel::instance()->countNumber(array('id' => $planId, 'status' => 0)));
+        if ($planId == 0 || 0 == PlanModel::instance()->countNumber(array('id' => $planId, 'status' => 0)))
             $this->alertError('no plan id');
 
         if(IS_POST) {

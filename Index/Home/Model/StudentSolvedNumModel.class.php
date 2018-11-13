@@ -1,17 +1,18 @@
 <?php
 /**
- *
- * Created by Dream.
+ * Dreaming, fixed later
+ * I am not sure why this works but it fixes the problem.
  * User: Boxjan
- * Datetime: 18-10-24 下午4:47
+ * Datetime: Nov 11, 2018 10:06
  */
+
 
 namespace Home\Model;
 
 
 use Constant\DataTableConfig;
 
-class ProblemModel extends BaseModel
+class StudentSolvedNumModel extends BaseModel
 {
 
     private static $_instance = null;
@@ -30,11 +31,13 @@ class ProblemModel extends BaseModel
     }
 
     protected function getTableName() {
-        return DataTableConfig::PROBLEM;
+        return DataTableConfig::PROBLEM_AC_NUM;
     }
 
     protected function getPrimaryId() {
         return 'id';
     }
-
+    public function getLatestByUserIdAndOj($userId, $oj) {
+        return $this->getDao()->order('catch_time')->where(array('origin_oj' => $oj, 'user_id' => $userId))->limit(1)->select()[0];
+    }
 }

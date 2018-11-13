@@ -13,13 +13,6 @@ use Basic\Log;
 use Crawler\Common\Person;
 use Crawler\Model\ProblemModel;
 use Crawler\Model\StudentAccountModel;
-use Crawler\Model\StudentAcTime;
-use Crawler\Fetcher\POJFetcher;
-use Crawler\Fetcher\HDOJFetcher;
-use Crawler\Fetcher\BestCodeOJFetcher;
-use Crawler\Fetcher\CodeForceOJFetcher;
-use Crawler\Fetcher\SDIBTOJFetcher;
-use Crawler\Fetcher\SDUTOJFetcher;
 use Crawler\Model\StudentAcTimeModel;
 
 
@@ -56,11 +49,11 @@ class UpdateProblemStatusController extends BaseController
             Log::info("Now is fetching student: {} {}", $name, $stu['origin_id']);
             $isProblemAc = StudentAcTimeModel::instance()->getProblemIsAc($stu['user_id'], $problemList);
 
-            foreach ($problemList as $problem){
-                if (in_array($problem['problem_id'], $isProblemAc)) return ;
+            foreach ($problemList as $problem) {
+                if (in_array($problem['problem_id'], $isProblemAc)) continue ;
 
                 $res = $handle->getProblemStatus(new Person($stu['user_id'], $stu['origin_id']), $problem['origin_id']);
-                
+
                 if ($res) {
                     StudentAcTimeModel::instance()->insertNew($stu['user_id'], $problem['problem_id'], $res);
                     Log::info("New record: { person: {}, catch: {} {}, ac time: {} }",

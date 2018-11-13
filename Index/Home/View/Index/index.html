@@ -1,24 +1,40 @@
-<div class="container plan_content">
-    <table class="table table-hover table-bordered table-condensed">
-        <thread>
-            <th width=5%>姓名</th>
-            <th width=30%>班级</th>
-            <th width=12%>poj solved</th>
-            <th width=12%>hdu solved</th>
-            <th width=8%>cf rating</th>
-            <th width=8%>bc rating</th>
-        </thread>
-        <tbody>
-        <foreach name="userList" item="user">
-            <tr>
-                <td>{$user['user_name']}</td>
-                <td>{$user['class_name']}</td>
-                <td>{$user['poj_solved']}</td>
-                <td>{$user['hdoj_solved']}</td>
-                <td>{$user['cf_rating']}</td>
-                <td>{$user['bc_rating']}</td>
-            </tr>
-        </foreach>
-        </tbody>
-    </table>
+<h1 class="title">统计表</h1>
+
+<div class="table-responsive">
+<table class="table table-hover table-bordered table-condensed" id="solved-table">
+    <thead>
+        <tr>
+            <th class="name">姓名</th>
+            <th class="class">班级</th>
+            <th class="solved">POJ solved</th>
+            <th class="solved">HDU solved</th>
+            <th class="solved">ZOJ solved</th>
+            <th class="solved">SDUT solved</th>
+            <th class="solved">SDIBT solved</th>
+            <th class="rating">CodeForce rating</th>
+            <th class="rating">BestCode rating</th>
+        </tr>
+    </thead>
+    <tbody>
+    <foreach name="student_list" item="user">
+        <tr>
+            <th class="name">{$user['nick_name']}</th>
+            <td class="class">{$user['class']}</td>
+            <td class="solved">{$user['poj']|default=0}</td>
+            <td class="solved">{$user['hdu']|default=0}</td>
+            <td class="solved">{$user['zoj']|default=0}</td>
+            <td class="solved">{$user['sdut']|default=0}</td>
+            <td class="solved">{$user['sdibt']|default=0}</td>
+            <td class="rating">{$user['cf']|default='null'}</td>
+            <td class="rating">{$user['bc']|default='null'}</td>
+        </tr>
+    </foreach>
+    </tbody>
+</table>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $("#table-responsive").css('max-height', $(window).height() * 0.75);
+    });
+</script>

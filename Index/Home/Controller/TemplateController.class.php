@@ -9,13 +9,16 @@
 namespace Home\Controller;
 
 
-use Domain\Plan;
+use Basic\Log;
+use Home\Model\PlanModel;
 use Think\Controller;
 
 class TemplateController extends Controller
 {
     public function _initialize() {
-        $this->addWidget('planTabList', Plan::$plan_map);
+        $planList = PlanModel::instance()->queryAll(array('status'=>0));
+        Log::debug('', $planList);
+        $this->assign('plan_list', $planList);
     }
 
     protected function alertError($errmsg, $url = '') {

@@ -1,57 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="训练计划 山东工商学院">
     <meta name="keywords" content="训练计划,山东工商学院">
-    <!-- Bootstrap -->
-    <css file="__PUBLIC__/Css/bootstrap.min.css"/>
-    <!--[if lt IE 9]>
-    <script src="__PUBLIC__/Js/html5shiv.min.js"></script>
-    <script src="__PUBLIC__/Js/respond.min.js"></script>
-    <![endif]-->
+
+    <js href="__PUBLIC__/Js/jquery-3.3.1.min.js"/>
+    <js href="__PUBLIC__/Js/bootstrap.min.js" />
+    <css href="__PUBLIC__/Css/bootstrap.min.css"/>
+    <css href="__PUBLIC__/Css/style.css"/>
 </head>
-<style>
-    html body {
-        padding-top: 70px;
-        background-color: #efefef;
-    }
-     .plan_content {
-         width: 100%;
-         padding-bottom: 10px;
-         min-height: 550px;
-         text-align: center;
-         font-size: 15px
-     }
-</style>
 <body>
-<div class="navbar navbar-fixed-top navbar-default" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#header-navbar">
-                <span class="sr-only">header toggle</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="#" class="navbar-brand exam_navbar-brand">训练计划</a>
-        </div>
-        <!-- navbar-header-end -->
-        <div class="collapse navbar-collapse" id="header-navbar">
-            <ul class="nav navbar-nav">
-                <li><a href="{:U('/Home')}">统计表</a></li>
-                <foreach name="planTabList" key="type" item="plan">
-                    <li><a href="{:U('/Home/Plan/index', array('type' => $type) )}">{$plan}</a></li>
-                </foreach>
-            </ul>
-            <!-- the second ul end -->
-        </div>
-        <!-- collapse navbar-collapse end -->
-    </div>
-    <!-- container-fluid end -->
-</div>
-<!-- navbar end -->
-<js file="__PUBLIC__/Js/jquery-1.11.2.min.js"/>
+
+

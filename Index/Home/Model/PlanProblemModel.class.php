@@ -1,17 +1,17 @@
 <?php
 /**
- *
- * Created by Dream.
+ * Dreaming, fixed later
+ * I am not sure why this works but it fixes the problem.
  * User: Boxjan
- * Datetime: 11/3/18 1:58 PM
+ * Datetime: Nov 10, 2018 08:27
  */
 
-namespace Crawler\Model;
 
+namespace Home\Model;
 
 use Constant\DataTableConfig;
 
-class StudentSolvedNum extends BaseModel
+class PlanProblemModel extends BaseModel
 {
     private static $_instance = null;
 
@@ -27,23 +27,12 @@ class StudentSolvedNum extends BaseModel
         }
         return self::$_instance;
     }
-
     protected function getTableName() {
-        return DataTableConfig::PROBLEM_AC_NUM;
+        return DataTableConfig::PROBLEM_PLAN;
     }
 
     protected function getPrimaryId() {
         return 'id';
-    }
-
-    public function insertNew($stuId, $num, $oj) {
-        $data = array(
-            'user_id' => $stuId,
-            'num' => $num,
-            'origin_oj' => $oj,
-            'catch_time' => date("Y-m-d H:i:s"),
-        );
-        return $this->insertData($data);
     }
 
 }

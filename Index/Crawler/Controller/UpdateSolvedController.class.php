@@ -8,17 +8,11 @@
 
 namespace Crawler\Controller;
 use Crawler\Common\Person;
-use Crawler\Model\ProblemModel;
 use Crawler\Model\StudentAccountModel;
-use Crawler\Fetcher\POJFetcher;
-use Crawler\Fetcher\HDOJFetcher;
-use Crawler\Fetcher\BestCodeOJFetcher;
-use Crawler\Fetcher\CodeForceOJFetcher;
-use Crawler\Fetcher\SDIBTOJFetcher;
-use Crawler\Fetcher\SDUTOJFetcher;
+
 
 use Basic\Log;
-use Crawler\Model\StudentSolvedNum;
+use Crawler\Model\StudentSolvedNumModel;
 
 class UpdateSolvedController extends BaseController
 {
@@ -50,7 +44,7 @@ class UpdateSolvedController extends BaseController
             $res = $handle->getSolved(new Person($stu['user_id'], $stu['origin_id']));
 
             if ($res) {
-                StudentSolvedNum::instance()->insertNew($stu['user_id'], $res, $name);
+                StudentSolvedNumModel::instance()->insertNew($stu['user_id'], $res, $name);
                 Log::info("New record: { person: {}, catch: {}, ac num: {} }",
                     $stu['user_id'], $name, $res);
             }

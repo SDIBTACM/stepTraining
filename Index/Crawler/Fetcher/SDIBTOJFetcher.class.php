@@ -26,6 +26,6 @@ class SDIBTOJFetcher extends AbsFetcherOJ
     }
 
     protected function filterProblemStatusPattern(Person $person, $problemId) {
-        return '|<tr align=center class=\'evenrow\'><td>1065230<td>.*?<td><a.*?>.*?</a><td><font color=green>Accepted</font><td>.*?<font color=red>.*?</font><td>.*?<font color=red>.*?</font><td>Python<td>39 B<td>(.*?)</tr>|';
+        return '|<tr align=center class=\'evenrow\'><td>.*?<td>.*?<td>.*?<td>.*?Accepted.*?<td>.*?<td>.*?<td>.*?<td>.*?<td>(.*?)</tr>|';
     }
 }

@@ -8,11 +8,9 @@
 
 namespace Home\Model;
 
+use Constant\DataTableConfig;
 
-use Domain\Person;
-
-
-class UserModel
+class UserModel extends BaseModel
 {
     private static $_instance = null;
 
@@ -27,5 +25,31 @@ class UserModel
             self::$_instance = new self;
         }
         return self::$_instance;
+    }
+
+    protected function getTableName() {
+        return DataTableConfig::USER;
+    }
+
+    protected function getPrimaryId() {
+        return 'id';
+    }
+
+    public function getAllStudentId() {
+        $where = array(
+            'status' => 0,
+            'is_show' => 1,
+            'identity' => 0
+        );
+        return $this->queryAll($where, array('id'));
+    }
+
+    public function getAllStudent($filed = array()){
+        $where = array(
+            'status' => 0,
+            'is_show' => 1,
+            'identity' => 0
+        );
+        return $this->queryAll($where, $filed);
     }
 }
