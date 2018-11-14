@@ -32,6 +32,8 @@ class PlanBusiness
         $problemIdList = $this->getProblemInPlan($planId);
         $studentIdList = $this->getStudentList();
 
+        if (count($problemIdList) == 0|| count($studentIdList) == 0) return null;
+
         $where = array(
             'problem_id' => array('IN', $problemIdList),
             'user_id' => array('IN', $studentIdList),
@@ -60,6 +62,7 @@ class PlanBusiness
 
     public function getProblemByPlanId($planId) {
         $problemIdList = $this->getProblemInPlan($planId);
+        if (count($problemIdList) == 0) return null;
 
         $where = array(
             'id' => array('IN', $problemIdList),
