@@ -47,11 +47,9 @@ class UserBusiness
             return Result::returnFailed('can not find user');
         }
 
-        if (isset($userInfo['user_name']))
-
-            if (false === UserModel::instance()->updateById($userInfo['id'], $userInfo)) {
-                return Result::returnFailed('update failed');
-            }
+        if (false === UserModel::instance()->updateById($userInfo['id'], $userInfo)) {
+            return Result::returnFailed('update failed');
+        }
 
         return Result::returnSuccess();
     }
