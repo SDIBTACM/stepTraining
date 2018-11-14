@@ -12,10 +12,6 @@ use Crawler\Common\Person;
 
 class SDUTOJFetcher extends AbsFetcherOJ
 {
-    protected function getSwitch() {
-        return C('switch_SDUTOJ');
-    }
-
     /**
      * 获取某个学生解决题数页面的html信息
      * @param Person $person
