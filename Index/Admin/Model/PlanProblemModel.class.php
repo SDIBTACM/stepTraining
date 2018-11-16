@@ -31,8 +31,4 @@ class PlanProblemModel extends BaseModel
         return DataTableConfig::PROBLEM_PLAN;
     }
 
-    protected function getPrimaryId() {
-        return 'id';
-    }
-
 }

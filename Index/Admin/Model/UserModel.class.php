@@ -30,9 +30,4 @@ class UserModel extends BaseModel
     protected function getTableName() {
         return DataTableConfig::USER;
     }
-
-    protected function getPrimaryId() {
-        return 'id';
-    }
-
 }

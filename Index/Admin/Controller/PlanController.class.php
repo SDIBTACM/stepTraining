@@ -14,8 +14,6 @@ use Admin\Business\PlanBusiness;
 use Admin\Business\PlanProblemBusiness;
 use Admin\Model\CategoryModel;
 use Admin\Model\PlanModel;
-use Admin\Model\PlanProblemModel;
-use Admin\Model\ProblemModel;
 use Basic\Log;
 
 class PlanController extends TemplateMustLoginController

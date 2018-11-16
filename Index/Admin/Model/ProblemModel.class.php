@@ -33,8 +33,4 @@ class ProblemModel extends BaseModel
         return DataTableConfig::PROBLEM;
     }
 
-    protected function getPrimaryId() {
-        return 'id';
-    }
-
 }

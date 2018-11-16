@@ -18,7 +18,9 @@ abstract class BaseModel
     /**
      * @return string primary id
      */
-    abstract protected function getPrimaryId();
+    protected function getPrimaryId() {
+        return "id";
+    }
 
     /**
      * @return \Think\Model model

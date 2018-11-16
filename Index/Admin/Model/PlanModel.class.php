@@ -10,7 +10,6 @@
 namespace Admin\Model;
 
 
-use Basic\Log;
 use Constant\DataTableConfig;
 
 class PlanModel extends BaseModel
@@ -32,9 +31,5 @@ class PlanModel extends BaseModel
 
     protected function getTableName() {
         return DataTableConfig::PLAN;
-    }
-
-    protected function getPrimaryId() {
-        return 'id';
     }
 }

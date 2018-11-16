@@ -44,13 +44,13 @@ class UserController extends TemplateController
     }
 
     public function logout() {
-        $this->isLogin();
-        return $this->doLogout();
+        if ($this->isLogin()) {
+            $this->doLogout();
+        }
+        $this->success('', U('Home/Index/index'));
     }
 
     private function doLogout() {
-        session('user_id', null);
-        session('[destroy]');
-        $this->success('', U('Home/Index/index'));
+        UserLoginBusiness::instance()->destroySessionInfo();
     }
 }

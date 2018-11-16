@@ -31,8 +31,4 @@ class CategoryModel extends BaseModel
     protected function getTableName() {
         return DataTableConfig::CATEGORY;
     }
-
-    protected function getPrimaryId() {
-        return 'id';
-    }
 }
