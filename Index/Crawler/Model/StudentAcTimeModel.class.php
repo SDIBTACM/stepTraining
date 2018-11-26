@@ -60,6 +60,8 @@ class StudentAcTimeModel extends BaseModel
         $problemId = array();
         foreach ($problemList as $pro) array_push($problemId, $pro['problem_id']);
 
+        if (count($problemId) == 0) return null;
+
         $where = array(
             'problem_id' => array('IN', $problemId),
             'user_id' => $userId,
