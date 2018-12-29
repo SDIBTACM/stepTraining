@@ -11,8 +11,19 @@
             </foreach>
 
         </tr>
+        <tr>
+            <th class="question">
+                <b class="problem">Count</b>
+            </th>
+            <foreach name="student_count" key="id" item="stu">
+                <td class="student">
+                    {$stu}
+                </td>
+            </foreach>
+        </tr>
         </thead>
-
+    </table>
+    <table class="table table-hover table-bordered table-condensed">
         <tbody>
             <foreach name="problem_list" key="key" item="problem">
 
@@ -23,17 +34,18 @@
                     </th>
                     <td class="no-show"> {$problem['id']} </td>
                     <foreach name="student_list" key="id" item="stu">
-                        <th class="student">
+                        <td class="student">
                             <empty name="student_ac_list[$problem['id']][$id_to_stu[$id]]">
                                 <else/>
                                 {$student_ac_list[$problem['id']][$id_to_stu[$id]]|strtotime|date='Y-m-d', ###}
                             </empty>
-                        </th>
+                        </td>
                     </foreach>
 
                 </tr>
 
             </foreach>
+
         </tbody>
     </table>
 </div>

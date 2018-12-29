@@ -26,6 +26,8 @@ class PlanController extends TemplateController
         $studentRaw = UserModel::instance()->getAllStudent();
         $studentAcList = PlanBusiness::instance()->getStudentAcTImeList($planId);
         $categoryRaw = CategoryModel::instance()->getAll();
+        $studentCount = PlanBusiness::instance()->getStudentAcCount($planId);
+
 
         $studentList = array(); $i = 0;
         $stuIdHashId = array(); $idHashStuId = array();
@@ -38,15 +40,15 @@ class PlanController extends TemplateController
         $categoryList = array();
         foreach ($categoryRaw as $item) $categoryList[$item['id']] = $item['name'];
 
+
         $this->assign('problem_list', $problemList);
         $this->assign('student_list', $studentList);
+        $this->assign('student_count', $studentCount);
         $this->assign('id_to_stu', $stuIdHashId);
         $this->assign('student_ac_list', $studentAcList);
         $this->assign('category_list', $categoryList);
         $this->assign('title', $planInfo['name']);
 
-
-        Log::debug('', $studentAcList);
         $this->auto_display();
 
     }

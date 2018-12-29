@@ -48,7 +48,6 @@ class PlanBusiness
         foreach ($StudentProblemAcRaw as $item) {
             $problemAcTimeList[$item['problem_id']][$item['user_id']] = $item['ac_time'];
         }
-        Log::debug('', $problemAcTimeList);
         return $problemAcTimeList;
     }
 
@@ -74,6 +73,24 @@ class PlanBusiness
         $problemList = ProblemModel::instance()->queryAll($where, $field);
 
         return $problemList;
+    }
+
+    public function getStudentAcCount($planId) {
+        $problemIdList = $this->getProblemInPlan($planId);
+        $studentIdList = $this->getStudentList();
+
+        if (count($problemIdList) == 0|| count($studentIdList) == 0) return null;
+
+        $studentCount = array();
+
+        foreach ($studentIdList as $student) {
+            $where = array(
+                'problem_id' => array('IN', $problemIdList),
+                'user_id' => $student,
+            );
+            $studentCount[$student] = ProblemAcTimeModel::instance()->countNumber($where);
+        }
+        return $studentCount;
     }
 
 

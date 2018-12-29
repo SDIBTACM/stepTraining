@@ -17,7 +17,6 @@ class TemplateController extends Controller
 {
     public function _initialize() {
         $planList = PlanModel::instance()->queryAll(array('status'=>0));
-        Log::debug('', $planList);
         $this->assign('plan_list', $planList);
     }
 
