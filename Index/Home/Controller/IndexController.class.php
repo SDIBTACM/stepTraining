@@ -17,7 +17,6 @@ class IndexController extends TemplateController
 
     public function index() {
         $studentList = UserModel::instance()->getAllStudent(array('id', 'class', 'nick_name'));
-        Log::debug('',$studentList);
         $supportOj = C('SUPPORT_OJ');
         $countList = array();
 
@@ -26,13 +25,11 @@ class IndexController extends TemplateController
 
             foreach ($supportOj as $oj) {
                 $res = StudentSolvedNumModel::instance()->getLatestbyUserIdAndOj($student['id'], $oj);
-                Log::debug('', $res);
                 $countList[$student['id']][$oj] =
                     StudentSolvedNumModel::instance()->getLatestbyUserIdAndOj($student['id'], $oj)['num'];
 
             }
         }
-        Log::debug('',$countList);
         $this->assign('student_list', $countList);
         $this->auto_display();
     }
